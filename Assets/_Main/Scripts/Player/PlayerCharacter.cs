@@ -7,6 +7,9 @@ public class PlayerCharacter : NetworkBehaviour
     private float moveSpeed = 5;
 
     [SerializeField]
+    private float dashMultiplier = 5;
+
+    [SerializeField]
     private float rotateSpeed = 5;
 
     [SerializeField]
@@ -27,6 +30,18 @@ public class PlayerCharacter : NetworkBehaviour
     {
         var moveDir = new Vector3(moveInput.x, 0, moveInput.y);
         rb.AddForce(moveDir * moveSpeed * Time.fixedDeltaTime, ForceMode.VelocityChange);
+    }
+
+    [Rpc(SendTo.Server)]
+    public void DashRPC(Vector2 moveInput)
+    {
+        var dir = new Vector3(moveInput.x, 0, moveInput.y);
+
+        if (dir == Vector3.zero)
+            dir = transform.forward;
+
+        rb.linearVelocity = Vector3.zero;
+        rb.AddForce(dir * dashMultiplier, ForceMode.Impulse);
     }
 
     private void UpdateRotation()

@@ -294,6 +294,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCharacter
   ShowTopMostFoldoutHeaderGroup: 1
   moveSpeed: 10
+  dashMultiplier: 6
   rotateSpeed: 4
   rb: {fileID: 3332653286222664330}
 --- !u!1 &9108006181257663822

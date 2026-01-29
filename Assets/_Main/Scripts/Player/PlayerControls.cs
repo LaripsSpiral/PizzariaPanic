@@ -37,6 +37,8 @@ public class PlayerControls : NetworkBehaviour
 
         controls.FindAction("Move").performed += ctx => moveInput = ctx.ReadValue<Vector2>();
         controls.FindAction("Move").canceled += _ => moveInput = Vector2.zero;
+
+        controls.FindAction("Dash").performed += _ => character.DashRPC(moveInput);
     }
 
     private void FixedUpdate()
