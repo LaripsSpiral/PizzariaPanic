@@ -2,7 +2,7 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ConnectionUI : MonoBehaviour
+public class ConnectionUI : NetworkBehaviour
 {
     [SerializeField]
     private Button hostButton;

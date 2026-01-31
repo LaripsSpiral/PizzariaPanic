@@ -41,18 +41,24 @@ public class PlayerCharacter : NetworkBehaviour
             dir = transform.forward;
 
         rb.linearVelocity = Vector3.zero;
-        rb.AddForce(dir * dashMultiplier, ForceMode.Impulse);
+        rb.AddForce(dir * moveSpeed * dashMultiplier, ForceMode.Impulse);
     }
 
     private void UpdateRotation()
     {
-        var moveDir = rb.linearVelocity.normalized/10;
-        if (moveDir == Vector3.zero)
+        // Only use horizontal velocity to compute facing direction.
+        var horizontalVel = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
+        if (horizontalVel.sqrMagnitude < 0.0001f)
             return;
 
-        transform.rotation = Quaternion.Slerp(transform.rotation, 
-            Quaternion.LookRotation(moveDir), 
-            Time.fixedDeltaTime * rotateSpeed);
-    }
+        // rot dir
+        var rotDir = Quaternion.LookRotation(horizontalVel.normalized);
 
+        // Interpolate
+        float currentYaw = transform.eulerAngles.y;
+        float targetYaw = rotDir.eulerAngles.y;
+        float newYaw = Mathf.LerpAngle(currentYaw, targetYaw, Time.fixedDeltaTime * rotateSpeed);
+
+        transform.rotation = Quaternion.Euler(0f, newYaw, 0f);
+    }
 }

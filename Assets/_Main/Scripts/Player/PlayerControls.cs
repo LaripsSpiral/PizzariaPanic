@@ -7,6 +7,9 @@ public class PlayerControls : NetworkBehaviour
     [SerializeField]
     private PlayerCharacter character;
 
+    [SerializeField]
+    private Interactor interactor;
+
     [SerializeField, ReadOnly]
     private Vector2 moveInput;
 
@@ -39,6 +42,7 @@ public class PlayerControls : NetworkBehaviour
         controls.FindAction("Move").canceled += _ => moveInput = Vector2.zero;
 
         controls.FindAction("Dash").performed += _ => character.DashRPC(moveInput);
+        controls.FindAction("Interact").performed += _ => interactor.InteractRPC();
     }
 
     private void FixedUpdate()
