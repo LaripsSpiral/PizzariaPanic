@@ -15,6 +15,8 @@ public class PlayerCharacter : NetworkBehaviour
     [SerializeField]
     private Rigidbody rb;
 
+    private Vector3 moveDir;
+
     private void OnValidate()
     {
         rb ??= GetComponent<Rigidbody>();
@@ -28,8 +30,23 @@ public class PlayerCharacter : NetworkBehaviour
     [Rpc(SendTo.Server)]
     public void MoveRPC(Vector2 moveInput)
     {
-        var moveDir = new Vector3(moveInput.x, 0, moveInput.y);
+        moveDir = new Vector3(moveInput.x, 0, moveInput.y);
         rb.AddForce(moveDir * moveSpeed * Time.fixedDeltaTime, ForceMode.VelocityChange);
+    }
+    private void UpdateRotation()
+    {
+        if (moveDir.sqrMagnitude < 0.001f)
+            return;
+
+        // rot dir
+        var rotDir = Quaternion.LookRotation(moveDir);
+
+        // Interpolate
+        float currentYaw = transform.eulerAngles.y;
+        float targetYaw = rotDir.eulerAngles.y;
+        float newYaw = Mathf.LerpAngle(currentYaw, targetYaw, Time.fixedDeltaTime * rotateSpeed);
+
+        transform.rotation = Quaternion.Euler(0f, newYaw, 0f);
     }
 
     [Rpc(SendTo.Server)]
