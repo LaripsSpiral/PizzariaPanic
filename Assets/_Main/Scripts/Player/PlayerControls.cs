@@ -14,6 +14,7 @@ public class PlayerControls : NetworkBehaviour
     private Vector2 moveInput;
 
     private Controls controls;
+    public Controls Controls => controls;
 
     private void Awake()
     {
@@ -42,7 +43,10 @@ public class PlayerControls : NetworkBehaviour
         controls.FindAction("Move").canceled += _ => moveInput = Vector2.zero;
 
         controls.FindAction("Dash").performed += _ => character.DashRPC(moveInput);
-        controls.FindAction("Interact").performed += _ => interactor.InteractRPC();
+
+        var interactAction = controls.FindAction("Interact");
+        interactAction.performed += interactor.InteractRPC;
+        interactAction.canceled += interactor.CancelInteractRPC;
     }
 
     private void FixedUpdate()

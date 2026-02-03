@@ -1,8 +1,16 @@
+using NaughtyAttributes;
 using Unity.Netcode;
 using UnityEngine;
 
 public class PlayerCharacter : NetworkBehaviour
 {
+    [SerializeField]
+    private Transform handlingPivot;
+
+    [SerializeField, ReadOnly]
+    private GameObject holdingObject;
+    public GameObject HoldingObject => holdingObject;
+
     [SerializeField]
     private float moveSpeed = 5;
 
@@ -61,21 +69,18 @@ public class PlayerCharacter : NetworkBehaviour
         rb.AddForce(dir * moveSpeed * dashMultiplier, ForceMode.Impulse);
     }
 
-    private void UpdateRotation()
+    public void Pickup(GameObject obj)
     {
-        // Only use horizontal velocity to compute facing direction.
-        var horizontalVel = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
-        if (horizontalVel.sqrMagnitude < 0.0001f)
-            return;
-
-        // rot dir
-        var rotDir = Quaternion.LookRotation(horizontalVel.normalized);
-
-        // Interpolate
-        float currentYaw = transform.eulerAngles.y;
-        float targetYaw = rotDir.eulerAngles.y;
-        float newYaw = Mathf.LerpAngle(currentYaw, targetYaw, Time.fixedDeltaTime * rotateSpeed);
-
-        transform.rotation = Quaternion.Euler(0f, newYaw, 0f);
+        Debug.Log($"{this} Picked up {obj}");
+        holdingObject = obj;
+        holdingObject.SetParentWithTransform(transform, handlingPivot);
     }
+
+    public void Place(Transform parent, Transform placeParent)
+    {
+        Debug.Log($"{this} Placed down {holdingObject} to {placeParent.name}");
+        holdingObject.SetParentWithTransform(parent, placeParent);
+        holdingObject = null;
+    }
+
 }

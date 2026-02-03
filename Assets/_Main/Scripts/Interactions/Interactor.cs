@@ -1,31 +1,44 @@
 using Unity.Netcode;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Interactor : MonoBehaviour
 {
     [SerializeField]
+    private float range;
+
+    [SerializeField]
     private PlayerCharacter character;
     public PlayerCharacter Character => character;
 
-    [SerializeField]
-    private float range;
+    private IInteractable currInteractable;
 
     [Rpc(SendTo.Server)]
-    public void InteractRPC() => Interact(FindNearest());
-    public void Interact(IInteractable interactable)
+    public void InteractRPC(InputAction.CallbackContext ctx) => Interact(ctx);
+    public void Interact(InputAction.CallbackContext ctx)
     {
-        if (interactable == null)
+        currInteractable = FindNearest();
+        if (currInteractable == null)
             return;
 
         //Debug.Log($"{this} Interacted with {interactable}.");
-        interactable.HandleInteract(character);
+        currInteractable.HandleInteract(ctx, character);
+    }
+
+    [Rpc(SendTo.Server)]
+    public void CancelInteractRPC(InputAction.CallbackContext ctx)
+    {
+        if (currInteractable == null)
+            return;
+
+        currInteractable.HandleCancelInteract(ctx, character);
+        currInteractable = null;
     }
 
     private IInteractable FindNearest()
     {
         IInteractable target = null;
-        var nearest = float.MaxValue;
+        var nearest = range;
 
         var interactManager = InteractManager.Instance;
         var interactables = interactManager.Interactables;
