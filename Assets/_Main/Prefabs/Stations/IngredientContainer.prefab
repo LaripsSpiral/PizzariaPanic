@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 7036322600766659338}
   - component: {fileID: 8505297245202345854}
   - component: {fileID: 4666310274331768033}
+  - component: {fileID: 2069427525815687152}
   m_Layer: 0
   m_Name: IngredientContainer
   m_TagString: Untagged
@@ -428,6 +429,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Station_IngredientContainer
   ShowTopMostFoldoutHeaderGroup: 1
-  holdingItemPivot: {fileID: 5071191337979804016}
-  holdingItem: {fileID: 0}
+  ItemHolder: {fileID: 2069427525815687152}
   ingredientPrefab: {fileID: 6810642471396285813, guid: 36dcb728e8a7cae42ad240dca501c9e9, type: 3}
+--- !u!114 &2069427525815687152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8634247225223193872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29878df8588eb2b48856d43f307bfc29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NetworkItemHolder
+  ShowTopMostFoldoutHeaderGroup: 1
+  handlingPivot: {fileID: 5071191337979804016}

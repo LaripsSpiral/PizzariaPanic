@@ -19,7 +19,7 @@ public class Station_Counter : BaseStation
         base.HandleInteract(inputCtx, character);
 
         // QoL - Quick access to place down, any of interaction
-        if (character.HoldingObject && !holdingItem)
+        if (character.ItemHolder.CurrItem && !ItemHolder.CurrItem)
         {
             PlayerPickPlaceInteract(character);
             return;
@@ -49,7 +49,8 @@ public class Station_Counter : BaseStation
         Debug.Log("Try Processing");
 
         // No item to process
-        if (!holdingItem || !holdingItem.TryGetComponent(out PizzaComponents pizzaComponents))
+        var item = ItemHolder.CurrItem;
+        if (!item || !item.TryGetComponent(out PizzaComponents pizzaComponents))
             return;
 
         Debug.Log("Processing");

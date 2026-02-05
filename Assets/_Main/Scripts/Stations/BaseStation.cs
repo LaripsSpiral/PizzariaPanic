@@ -8,15 +8,12 @@ public abstract class BaseStation : NetworkBehaviour, IInteractable
 {
     public Transform Transform => transform;
 
-    [SerializeField]
-    private Transform holdingItemPivot;
-
-    [SerializeField, ReadOnly]
-    protected GameObject holdingItem;
+    public NetworkItemHolder ItemHolder;
 
     protected virtual void Start()
     {
         InteractManager.Instance.Subscribe(this);
+        ItemHolder.InitUpdateParentTransform();
     }
 
     public override void OnDestroy()
@@ -37,19 +34,11 @@ public abstract class BaseStation : NetworkBehaviour, IInteractable
 
     protected void PlayerPickPlaceInteract(PlayerCharacter character)
     {
-        var characterHoldingObj = character.HoldingObject;
+        // Both no holding item
+        var characterHoldingItem = character.ItemHolder.CurrItem;
+        if (!characterHoldingItem && !ItemHolder.CurrItem)
+            return;
 
-        if (characterHoldingObj && !holdingItem)
-        {
-            holdingItem = characterHoldingObj;
-            character.Place(transform, holdingItemPivot);
-            return;
-        }
-        else if (!characterHoldingObj && holdingItem)
-        {
-            character.Pickup(holdingItem);
-            holdingItem = null;
-            return;
-        }
+        ItemHolder.SwapItemFromHolder(character.ItemHolder);
     }
 }

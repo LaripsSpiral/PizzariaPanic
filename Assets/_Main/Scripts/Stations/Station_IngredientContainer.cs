@@ -1,3 +1,4 @@
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.TextCore.Text;
@@ -13,20 +14,24 @@ public class Station_IngredientContainer : BaseStation
 
         PlayerPickPlaceInteract(character);
 
-        if (holdingItem)
+        if (ItemHolder.CurrItem)
             return;
 
-        PickupIngredient(character);
+        if (character.ItemHolder.CurrItem != null)
+            return;
+
+        SpawnNetworkIngredientRPC();
+        character.ItemHolder.SwapItemFromHolder(ItemHolder);
     }
 
-    private void PickupIngredient(PlayerCharacter character)
+    [Rpc(SendTo.Server)]
+    private void SpawnNetworkIngredientRPC()
     {
-        if (character.HoldingObject != null)
-            return;
+        var instanceItem = Instantiate(ingredientPrefab);
 
-        // Spawn Network Object
-        var instanceObject = Instantiate(ingredientPrefab);
-        instanceObject.NetworkObject.Spawn();
-        character.Pickup(instanceObject.gameObject);
+        var networkInstance = instanceItem.NetworkObject;
+        networkInstance.Spawn();
+
+        ItemHolder.HoldItemRPC(networkInstance);
     }
 }

@@ -4,12 +4,7 @@ using UnityEngine;
 
 public class PlayerCharacter : NetworkBehaviour
 {
-    [SerializeField]
-    private Transform handlingPivot;
-
-    [SerializeField, ReadOnly]
-    private GameObject holdingObject;
-    public GameObject HoldingObject => holdingObject;
+    public NetworkItemHolder ItemHolder;
 
     [SerializeField]
     private float moveSpeed = 5;
@@ -28,6 +23,11 @@ public class PlayerCharacter : NetworkBehaviour
     private void OnValidate()
     {
         rb ??= GetComponent<Rigidbody>();
+    }
+
+    private void Start()
+    {
+        ItemHolder.InitUpdateParentTransform();
     }
 
     private void FixedUpdate()
@@ -68,19 +68,4 @@ public class PlayerCharacter : NetworkBehaviour
         rb.linearVelocity = Vector3.zero;
         rb.AddForce(dir * moveSpeed * dashMultiplier, ForceMode.Impulse);
     }
-
-    public void Pickup(GameObject obj)
-    {
-        Debug.Log($"{this} Picked up {obj}");
-        holdingObject = obj;
-        holdingObject.SetParentWithTransform(transform, handlingPivot);
-    }
-
-    public void Place(Transform parent, Transform placeParent)
-    {
-        Debug.Log($"{this} Placed down {holdingObject} to {placeParent.name}");
-        holdingObject.SetParentWithTransform(parent, placeParent);
-        holdingObject = null;
-    }
-
 }

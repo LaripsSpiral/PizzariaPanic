@@ -16,11 +16,11 @@ public class InteractManager : MonoBehaviour
     public void Subscribe(IInteractable interactable)
     {
         interactables.Add(interactable);
-        Debug.Log($"{this} Added {interactable}");
+        Debug.Log($"InteractManager Added {interactable}");
     }
     public void Unsubscribe(IInteractable interactable)
     {
         interactables.Remove(interactable);
-        Debug.Log($"{this} Removed {interactable}");
+        Debug.Log($"InteractManager Removed {interactable}");
     }
 }
