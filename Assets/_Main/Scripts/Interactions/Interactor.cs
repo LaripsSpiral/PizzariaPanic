@@ -4,6 +4,10 @@ using UnityEngine.InputSystem;
 
 public class Interactor : MonoBehaviour
 {
+
+    [SerializeField]
+    private LayerMask interactionMask;
+
     [SerializeField]
     private float range;
 
@@ -12,6 +16,8 @@ public class Interactor : MonoBehaviour
     public PlayerCharacter Character => character;
 
     private IInteractable currInteractable;
+
+    private Collider[] allocateInteractions = new Collider[10];
 
     [Rpc(SendTo.Server)]
     public void InteractRPC(InputAction.CallbackContext ctx) => Interact(ctx);
@@ -38,30 +44,25 @@ public class Interactor : MonoBehaviour
     private IInteractable FindNearest()
     {
         IInteractable target = null;
-        var nearest = range;
 
-        var interactManager = InteractManager.Instance;
-        var interactables = interactManager.Interactables;
+        float nearestSqrDist = range * range;
 
-        if (interactables.Count == 0)
-            return null;
+        int count = Physics.OverlapSphereNonAlloc(transform.position, range, allocateInteractions, interactionMask);
 
-        for (int i = 0; i < interactables.Count; i++)
+        for (int i = 0; i < count; i++)
         {
-            // In Range
-            var distance = Vector3.Distance(
-                transform.position,
-                interactables[i].Transform.position);
+            if (!allocateInteractions[i].TryGetComponent(out IInteractable interactable))
+                continue;
 
-            if (distance < nearest)
+            var diff = interactable.Transform.position - transform.position;
+            var distSqr = diff.sqrMagnitude;
+
+            if (distSqr < nearestSqrDist)
             {
-                target = interactables[i];
-                nearest = distance;
+                target = interactable;
+                nearestSqrDist = distSqr;
             }
         }
-
-        //Debug.Log($"{this} Found {target}");
-
         return target;
     }
 

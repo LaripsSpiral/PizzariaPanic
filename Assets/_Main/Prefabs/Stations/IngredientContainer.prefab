@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5071191337979804016}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: HoldingItemPivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48,7 +48,7 @@ GameObject:
   - component: {fileID: 8505297245202345854}
   - component: {fileID: 4666310274331768033}
   - component: {fileID: 2069427525815687152}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: IngredientContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}

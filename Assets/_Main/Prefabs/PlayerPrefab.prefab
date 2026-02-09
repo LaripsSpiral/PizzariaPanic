@@ -143,7 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 2568046817
+  GlobalObjectIdHash: 457366015
   InScenePlacedSourceGlobalObjectIdHash: 457366015
   DeferredDespawnTick: 0
   Ownership: 1
@@ -292,6 +292,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3e03d6c6c733f94c85df21cdb79516e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Interactor
+  interactionMask:
+    serializedVersion: 2
+    m_Bits: 128
   range: 1.5
   character: {fileID: 3559646041675406601}
 --- !u!114 &7519812933335278341

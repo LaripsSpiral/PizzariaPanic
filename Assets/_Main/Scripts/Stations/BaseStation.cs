@@ -12,14 +12,7 @@ public abstract class BaseStation : NetworkBehaviour, IInteractable
 
     protected virtual void Start()
     {
-        InteractManager.Instance.Subscribe(this);
         ItemHolder.InitUpdateParentTransform();
-    }
-
-    public override void OnDestroy()
-    {
-        base.OnDestroy();
-        InteractManager.Instance.Unsubscribe(this);
     }
 
     public virtual void HandleInteract(InputAction.CallbackContext inputCtx, PlayerCharacter character)
