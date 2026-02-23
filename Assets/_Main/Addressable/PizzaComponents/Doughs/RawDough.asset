@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8ec932135195de4084301612062e5da, type: 3}
+  m_Name: RawDough
+  m_EditorClassIdentifier: Assembly-CSharp::PizzaComponentSO
+  id: RawDough
+  type: 1
+  meshPrefab: {fileID: 4981542757313139140, guid: 1fd07aa6887e1af4bba09373a85aabb1, type: 3}
+  processData:
+    ProcessWith: 1
+    ProcessTime: 2
+    ProcessedData: {fileID: 11400000, guid: 1bcbf152d052f6b44a728b7f5b1ac7c8, type: 2}
+  isCombineAble: 1

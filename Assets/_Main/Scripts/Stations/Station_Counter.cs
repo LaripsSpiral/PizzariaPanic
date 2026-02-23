@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
@@ -11,7 +12,7 @@ public class Station_Counter : BaseStation
     private void FixedUpdate()
     {
         if (holdingInteract)
-            HandleProcess();
+            HandleProcessRPC();
     }
 
     public override void HandleInteract(InputAction.CallbackContext inputCtx, PlayerCharacter character)
@@ -19,7 +20,7 @@ public class Station_Counter : BaseStation
         base.HandleInteract(inputCtx, character);
 
         // QoL - Quick access to place down, any of interaction
-        if (character.ItemHolder.CurrItem && !ItemHolder.CurrItem)
+        if (character.ItemHolder && !ItemHolder.HoldingNetObj)
         {
             PlayerPickPlaceInteract(character);
             return;
@@ -44,17 +45,18 @@ public class Station_Counter : BaseStation
         holdingInteract = false;
     }
 
-    private void HandleProcess()
+    [Rpc(SendTo.Server)]
+    private void HandleProcessRPC()
     {
         Debug.Log("Try Processing");
 
         // No item to process
-        var item = ItemHolder.CurrItem;
-        if (!item || !item.TryGetComponent(out PizzaComponents pizzaComponents))
+        var item = ItemHolder.HoldingNetObj;
+        if (!item || !item.TryGetComponent(out PizzaComponentController pizzaComponents))
             return;
 
         Debug.Log("Processing");
-        pizzaComponents.IngredientController.DoProcess(Processor.Counter);
+        pizzaComponents.Model.DoProcess(Processor.Counter);
     }
 
 }

@@ -28,9 +28,19 @@ public abstract class BaseStation : NetworkBehaviour, IInteractable
     protected void PlayerPickPlaceInteract(PlayerCharacter character)
     {
         // Both no holding item
-        var characterHoldingItem = character.ItemHolder.CurrItem;
-        if (!characterHoldingItem && !ItemHolder.CurrItem)
+        var characterHoldingItem = character.ItemHolder.HoldingNetObj;
+        if (!characterHoldingItem && !ItemHolder.HoldingNetObj)
             return;
+
+        if (characterHoldingItem && ItemHolder.HoldingNetObj)
+        {
+            ItemHolder.HoldingNetObj.TryGetComponent(out PizzaComponentController holderPizzaComponent);
+            characterHoldingItem.TryGetComponent(out PizzaComponentController characterPizzaComponent);
+
+            // Combine Ingredient
+            if (characterPizzaComponent.Model.TryAddIngredient(holderPizzaComponent))
+                return;
+        }
 
         ItemHolder.SwapItemFromHolder(character.ItemHolder);
     }

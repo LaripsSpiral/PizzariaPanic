@@ -6,7 +6,10 @@ using UnityEngine.TextCore.Text;
 public class Station_IngredientContainer : BaseStation
 {
     [SerializeField]
-    private PizzaComponents ingredientPrefab;
+    private PizzaComponentSO ingredientData;
+
+    [SerializeField]
+    private PizzaComponentController pizzaComponentPrefab;
 
     public override void HandleInteract(InputAction.CallbackContext inputCtx, PlayerCharacter character)
     {
@@ -14,10 +17,10 @@ public class Station_IngredientContainer : BaseStation
 
         PlayerPickPlaceInteract(character);
 
-        if (ItemHolder.CurrItem)
+        if (ItemHolder.HoldingNetObj)
             return;
 
-        if (character.ItemHolder.CurrItem != null)
+        if (character.ItemHolder.HoldingNetObj != null)
             return;
 
         SpawnNetworkIngredientRPC();
@@ -27,11 +30,13 @@ public class Station_IngredientContainer : BaseStation
     [Rpc(SendTo.Server)]
     private void SpawnNetworkIngredientRPC()
     {
-        var instanceItem = Instantiate(ingredientPrefab);
+        var instanceNetworkObj = Instantiate(pizzaComponentPrefab).NetworkObject;
+        instanceNetworkObj.Spawn();
 
-        var networkInstance = instanceItem.NetworkObject;
-        networkInstance.Spawn();
-
-        ItemHolder.HoldItemRPC(networkInstance);
+        if (instanceNetworkObj.TryGetComponent(out PizzaComponentController pizzaComponent))
+        {
+            pizzaComponent.SetDataRPC(ingredientData.Name);
+            ItemHolder.HoldItemRPC(instanceNetworkObj);
+        }
     }
 }

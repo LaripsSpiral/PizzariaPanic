@@ -6,14 +6,14 @@ using UnityEngine;
 public class NetworkItemHolder : NetworkBehaviour
 {
     public NetworkVariable<NetworkObjectReference> CurrItemRef = new();
-    public NetworkObject CurrItem => CurrItemRef.Value;
+    public NetworkObject HoldingNetObj => CurrItemRef.Value;
 
     [SerializeField]
     private Transform handlingPivot;
 
     public void InitUpdateParentTransform()
     {
-        CurrItemRef.OnValueChanged += (_, _) => Debug.Log($"{this} changed holding item to {CurrItem}");
+        CurrItemRef.OnValueChanged += (_, _) => Debug.Log($"{this} changed holding item to {HoldingNetObj}");
         CurrItemRef.OnValueChanged += UpdateParentTransform;
     }
 
@@ -46,7 +46,7 @@ public class NetworkItemHolder : NetworkBehaviour
         if (!networkObject.TryGetComponent(out NetworkItemHolder targetHolder))
             return;
 
-        Debug.Log($"{this}({CurrItem}) Swapping to {targetHolder}({targetHolder.CurrItem})");
+        Debug.Log($"{this}({HoldingNetObj}) Swapping to {targetHolder}({targetHolder.HoldingNetObj})");
         (CurrItemRef.Value, targetHolder.CurrItemRef.Value) = (targetHolder.CurrItemRef.Value, CurrItemRef.Value);
 
     }

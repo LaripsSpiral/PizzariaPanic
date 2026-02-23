@@ -430,7 +430,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Station_IngredientContainer
   ShowTopMostFoldoutHeaderGroup: 1
   ItemHolder: {fileID: 2069427525815687152}
-  ingredientPrefab: {fileID: 6810642471396285813, guid: 36dcb728e8a7cae42ad240dca501c9e9, type: 3}
+  ingredientData: {fileID: 0}
+  pizzaComponentPrefab: {fileID: 1858117674424819066, guid: 49963d6536c179644b38de865a3d22bf, type: 3}
 --- !u!114 &2069427525815687152
 MonoBehaviour:
   m_ObjectHideFlags: 0

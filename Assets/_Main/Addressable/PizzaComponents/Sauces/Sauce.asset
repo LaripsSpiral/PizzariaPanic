@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8ec932135195de4084301612062e5da, type: 3}
+  m_Name: Sauce
+  m_EditorClassIdentifier: Assembly-CSharp::PizzaComponentSO
+  id: Sauce
+  type: 2
+  meshPrefab: {fileID: 3321455367640471657, guid: 051219b095022fb4986c1cc43b9e569d, type: 3}
+  processData:
+    ProcessWith: 0
+    ProcessTime: 0
+    ProcessedData: {fileID: 0}
+  isCombineAble: 0

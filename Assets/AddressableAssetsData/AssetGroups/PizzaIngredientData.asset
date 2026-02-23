@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: PizzaIngredientData
+  m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
+  m_GroupName: PizzaIngredientData
+  m_GUID: 54855331cf5f0804aa5d363506703895
+  m_SerializeEntries:
+  - m_GUID: 1bcbf152d052f6b44a728b7f5b1ac7c8
+    m_Address: PizzaDough
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Data
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 24a426c5011146249833eca7dc9d4a3a
+    m_Address: Topping
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Data
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2b0d7d59fc5f0fb4c88e3b19591b7408
+    m_Address: RawDough
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Data
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 82c4b51c8f98e18489728d451d8e0acd
+    m_Address: Sauce
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Data
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: ff781a2c29b11e143a14b380f6c01ebb, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 053358111829b674cb70242e45760432, type: 2}
+    - {fileID: 11400000, guid: 94364996121e7104d9ada1e8d8580db7, type: 2}
