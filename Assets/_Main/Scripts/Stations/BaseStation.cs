@@ -1,47 +1,49 @@
-using NaughtyAttributes;
+using Main.Ingredient;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.TextCore.Text;
 
-public abstract class BaseStation : NetworkBehaviour, IInteractable
+namespace Main.Station
 {
-    public Transform Transform => transform;
-
-    public NetworkItemHolder ItemHolder;
-
-    protected virtual void Start()
+    public abstract class BaseStation : NetworkBehaviour, IInteractable
     {
-        ItemHolder.InitUpdateParentTransform();
-    }
+        public Transform Transform => transform;
 
-    public virtual void HandleInteract(InputAction.CallbackContext inputCtx, PlayerCharacter character)
-    {
-        Debug.Log($"{character} Interacted {this}");
-    }
+        public NetworkItemHolder ItemHolder;
 
-    public virtual void HandleCancelInteract(InputAction.CallbackContext inputCtx, PlayerCharacter character)
-    {
-        Debug.Log($"{character} Canceled Interact {this}");
-    }
-
-    protected void PlayerPickPlaceInteract(PlayerCharacter character)
-    {
-        // Both no holding item
-        var characterHoldingItem = character.ItemHolder.HoldingNetObj;
-        if (!characterHoldingItem && !ItemHolder.HoldingNetObj)
-            return;
-
-        if (characterHoldingItem && ItemHolder.HoldingNetObj)
+        protected virtual void Start()
         {
-            ItemHolder.HoldingNetObj.TryGetComponent(out PizzaComponentController holderPizzaComponent);
-            characterHoldingItem.TryGetComponent(out PizzaComponentController characterPizzaComponent);
-
-            // Combine Ingredient
-            if (characterPizzaComponent.Model.TryAddIngredient(holderPizzaComponent))
-                return;
+            ItemHolder.InitUpdateParentTransform();
         }
 
-        ItemHolder.SwapItemFromHolder(character.ItemHolder);
+        public virtual void HandleInteract(InputAction.CallbackContext inputCtx, PlayerCharacter character)
+        {
+            Debug.Log($"{character} Interacted {this}");
+        }
+
+        public virtual void HandleCancelInteract(InputAction.CallbackContext inputCtx, PlayerCharacter character)
+        {
+            Debug.Log($"{character} Canceled Interact {this}");
+        }
+
+        protected void PlayerPickPlaceInteract(PlayerCharacter character)
+        {
+            // Both no holding item
+            var characterHoldingItem = character.ItemHolder.HoldingNetObj;
+            if (!characterHoldingItem && !ItemHolder.HoldingNetObj)
+                return;
+
+            if (characterHoldingItem && ItemHolder.HoldingNetObj)
+            {
+                ItemHolder.HoldingNetObj.TryGetComponent(out IngredientController holderPizzaComponent);
+                characterHoldingItem.TryGetComponent(out IngredientController characterPizzaComponent);
+
+                // Combine Ingredient
+                if (holderPizzaComponent.Model.TryAddIngredient(addingIngredient: characterPizzaComponent))
+                    return;
+            }
+
+            ItemHolder.SwapItemFromHolder(character.ItemHolder);
+        }
     }
 }

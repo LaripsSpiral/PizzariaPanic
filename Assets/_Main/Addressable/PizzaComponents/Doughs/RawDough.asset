@@ -19,4 +19,4 @@ MonoBehaviour:
     ProcessWith: 1
     ProcessTime: 2
     ProcessedData: {fileID: 11400000, guid: 1bcbf152d052f6b44a728b7f5b1ac7c8, type: 2}
-  isCombineAble: 1
+  isCombineAble: 0

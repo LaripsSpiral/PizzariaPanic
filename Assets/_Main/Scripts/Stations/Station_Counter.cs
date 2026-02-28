@@ -1,62 +1,65 @@
-using System.Collections;
+using Main.Ingredient;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
 
-public class Station_Counter : BaseStation
+namespace Main.Station
 {
-    [SerializeField]
-    private bool holdingInteract;
-
-    private void FixedUpdate()
+    public class Station_Counter : BaseStation
     {
-        if (holdingInteract)
-            HandleProcessRPC();
-    }
+        [SerializeField]
+        private bool holdingInteract;
 
-    public override void HandleInteract(InputAction.CallbackContext inputCtx, PlayerCharacter character)
-    {
-        base.HandleInteract(inputCtx, character);
-
-        // QoL - Quick access to place down, any of interaction
-        if (character.ItemHolder && !ItemHolder.HoldingNetObj)
+        private void FixedUpdate()
         {
-            PlayerPickPlaceInteract(character);
-            return;
+            if (holdingInteract)
+                HandleProcessRPC();
         }
 
-        switch (inputCtx.interaction)
+        public override void HandleInteract(InputAction.CallbackContext inputCtx, PlayerCharacter character)
         {
-            case HoldInteraction:
-                holdingInteract = true;
-                break;
+            base.HandleInteract(inputCtx, character);
 
-            default:
+            // QoL - Quick access to place down, any of interaction
+            if (character.ItemHolder && !ItemHolder.HoldingNetObj)
+            {
                 PlayerPickPlaceInteract(character);
-                break;
+                return;
+            }
+
+            switch (inputCtx.interaction)
+            {
+                case HoldInteraction:
+                    holdingInteract = true;
+                    break;
+
+                default:
+                    PlayerPickPlaceInteract(character);
+                    break;
+            }
         }
+
+        public override void HandleCancelInteract(InputAction.CallbackContext inputCtx, PlayerCharacter character)
+        {
+            base.HandleCancelInteract(inputCtx, character);
+
+            holdingInteract = false;
+        }
+
+        [Rpc(SendTo.Server)]
+        private void HandleProcessRPC()
+        {
+            Debug.Log("Try Processing");
+
+            // No item to process
+            var item = ItemHolder.HoldingNetObj;
+            if (!item || !item.TryGetComponent(out IngredientController pizzaComponents))
+                return;
+
+            Debug.Log("Processing");
+            pizzaComponents.Model.DoProcess(Processor.Counter);
+        }
+
     }
-
-    public override void HandleCancelInteract(InputAction.CallbackContext inputCtx, PlayerCharacter character)
-    {
-        base.HandleCancelInteract(inputCtx, character);
-
-        holdingInteract = false;
-    }
-
-    [Rpc(SendTo.Server)]
-    private void HandleProcessRPC()
-    {
-        Debug.Log("Try Processing");
-
-        // No item to process
-        var item = ItemHolder.HoldingNetObj;
-        if (!item || !item.TryGetComponent(out PizzaComponentController pizzaComponents))
-            return;
-
-        Debug.Log("Processing");
-        pizzaComponents.Model.DoProcess(Processor.Counter);
-    }
-
 }

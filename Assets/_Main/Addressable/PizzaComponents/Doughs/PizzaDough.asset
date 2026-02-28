@@ -19,4 +19,4 @@ MonoBehaviour:
     ProcessWith: 2
     ProcessTime: 3
     ProcessedData: {fileID: 0}
-  isCombineAble: 0
+  isCombineAble: 1

@@ -1,11 +1,14 @@
 using UnityEngine.InputSystem;
 
-public class Station_Oven : BaseStation
+namespace Main.Station
 {
-    public override void HandleInteract(InputAction.CallbackContext inputCtx, PlayerCharacter character)
+    public class Station_Oven : BaseStation
     {
-        base.HandleInteract(inputCtx, character);
+        public override void HandleInteract(InputAction.CallbackContext inputCtx, PlayerCharacter character)
+        {
+            base.HandleInteract(inputCtx, character);
 
-        PlayerPickPlaceInteract(character);
+            PlayerPickPlaceInteract(character);
+        }
     }
 }
