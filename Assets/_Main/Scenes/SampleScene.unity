@@ -2202,6 +2202,10 @@ PrefabInstance:
       propertyPath: ingredientPrefab
       value: 
       objectReference: {fileID: 7656744478705213624, guid: 051219b095022fb4986c1cc43b9e569d, type: 3}
+    - target: {fileID: 4666310274331768033, guid: 800434a3fe3a68a4c85c2769e5809bc5, type: 3}
+      propertyPath: ingredientControllerPrefab
+      value: 
+      objectReference: {fileID: 1858117674424819066, guid: 49963d6536c179644b38de865a3d22bf, type: 3}
     - target: {fileID: 7036322600766659338, guid: 800434a3fe3a68a4c85c2769e5809bc5, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -2212,7 +2216,7 @@ PrefabInstance:
       objectReference: {fileID: 228805639}
     - target: {fileID: 7753970314264508077, guid: 800434a3fe3a68a4c85c2769e5809bc5, type: 3}
       propertyPath: m_VersionIndex
-      value: 86
+      value: 92
       objectReference: {fileID: 0}
     - target: {fileID: 8505297245202345854, guid: 800434a3fe3a68a4c85c2769e5809bc5, type: 3}
       propertyPath: GlobalObjectIdHash
@@ -7724,6 +7728,10 @@ PrefabInstance:
       propertyPath: ingredientPrefab
       value: 
       objectReference: {fileID: 2575451773924337102, guid: 72f4b395e044bd643a96814a1f5295b2, type: 3}
+    - target: {fileID: 4666310274331768033, guid: 800434a3fe3a68a4c85c2769e5809bc5, type: 3}
+      propertyPath: ingredientControllerPrefab
+      value: 
+      objectReference: {fileID: 1858117674424819066, guid: 49963d6536c179644b38de865a3d22bf, type: 3}
     - target: {fileID: 7036322600766659338, guid: 800434a3fe3a68a4c85c2769e5809bc5, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -7734,7 +7742,7 @@ PrefabInstance:
       objectReference: {fileID: 1792545623}
     - target: {fileID: 7753970314264508077, guid: 800434a3fe3a68a4c85c2769e5809bc5, type: 3}
       propertyPath: m_VersionIndex
-      value: 86
+      value: 92
       objectReference: {fileID: 0}
     - target: {fileID: 8505297245202345854, guid: 800434a3fe3a68a4c85c2769e5809bc5, type: 3}
       propertyPath: GlobalObjectIdHash
@@ -8294,6 +8302,10 @@ PrefabInstance:
       propertyPath: ingredientData
       value: 
       objectReference: {fileID: 11400000, guid: 2b0d7d59fc5f0fb4c88e3b19591b7408, type: 2}
+    - target: {fileID: 4666310274331768033, guid: 800434a3fe3a68a4c85c2769e5809bc5, type: 3}
+      propertyPath: ingredientControllerPrefab
+      value: 
+      objectReference: {fileID: 1858117674424819066, guid: 49963d6536c179644b38de865a3d22bf, type: 3}
     - target: {fileID: 7036322600766659338, guid: 800434a3fe3a68a4c85c2769e5809bc5, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -8304,7 +8316,7 @@ PrefabInstance:
       objectReference: {fileID: 660932185}
     - target: {fileID: 7753970314264508077, guid: 800434a3fe3a68a4c85c2769e5809bc5, type: 3}
       propertyPath: m_VersionIndex
-      value: 80
+      value: 86
       objectReference: {fileID: 0}
     - target: {fileID: 8505297245202345854, guid: 800434a3fe3a68a4c85c2769e5809bc5, type: 3}
       propertyPath: GlobalObjectIdHash

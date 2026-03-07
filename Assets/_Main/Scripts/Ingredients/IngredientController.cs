@@ -1,4 +1,6 @@
-using System.Collections.Generic;
+using Main.Recipe;
+using System;
+using System.Threading.Tasks;
 using Unity.Collections;
 using Unity.Netcode;
 using UnityEngine;
@@ -15,8 +17,13 @@ namespace Main.Ingredient
         private NetworkVariable<FixedString32Bytes> dataId = new();
         public FixedString32Bytes DataId => dataId.Value;
 
-        private NetworkVariable<List<FixedString32Bytes>> combinedComponents = new(new());
-        public List<FixedString32Bytes> CombinedComponentsId => combinedComponents.Value;
+        [SerializeField]
+        private RecipeController recipeController;
+        public RecipeController RecipeController => recipeController;
+
+        [SerializeField]
+        private IngredientView view;
+        public IngredientView View => view;
 
         [SerializeField]
         private IngredientSO currentData;
@@ -24,8 +31,6 @@ namespace Main.Ingredient
 
         private IngredientModel model = new();
         public IngredientModel Model => model;
-
-        private GameObject currentView;
 
         protected void Start()
         {
@@ -36,8 +41,9 @@ namespace Main.Ingredient
         {
             dataId.OnValueChanged += HandleDataIDChange;
 
-            if (!string.IsNullOrEmpty(dataId.Value.ToString()))
-                HandleDataIDChange("", dataId.Value);
+            var currentKey = dataId.Value.ToString();
+            if (!string.IsNullOrEmpty(currentKey))
+                HandleDataIDChange(default, dataId.Value);
         }
 
         public override void OnNetworkDespawn()
@@ -48,40 +54,70 @@ namespace Main.Ingredient
         [Rpc(SendTo.Server)]
         public void SetDataRPC(string dataID)
         {
-            dataId.Value = dataID.ToString();
+            dataId.Value = dataID ?? string.Empty;
         }
 
-        private void HandleDataIDChange(FixedString32Bytes previousValue, FixedString32Bytes newValue)
+        private async void HandleDataIDChange(FixedString32Bytes previousValue, FixedString32Bytes newValue)
         {
-            LoadDataAndSyncView(newValue.ToString());
-        }
-
-        private async void LoadDataAndSyncView(string key)
-        {
-            Debug.Log($"[Addressables] Starting load for: {key}");
-
-            // Load the ScriptableObject
-            var handle = Addressables.LoadAssetAsync<IngredientSO>(key);
-            await handle.Task;
-
-            if (handle.Status == AsyncOperationStatus.Succeeded)
+            var key = newValue.ToString();
+            if (string.IsNullOrEmpty(key))
             {
-                currentData = handle.Result; // Now SO is set!
-                UpdateView(currentData);
+                currentData = null;
+                return;
             }
-            else
+
+            try
             {
-                Debug.LogError($"[Addressables] Could not find SO with key: {key}");
+                var data = await LoadData(newValue);
+                currentData = data;
+
+                // Apply New
+                recipeController.AddIngredientIDServerRPC(newValue);
+                view.LoadView(data);
+
+                // Remove Old
+                recipeController.RemoveIngredientIDServerRPC(previousValue);
+                view.RemoveView(previousValue);
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"[IngredientController] Failed to load data for key '{key}': {ex}");
+                currentData = null;
             }
         }
 
-        private void UpdateView(IngredientSO data)
+        public static async Task<IngredientSO> LoadData(FixedString32Bytes key)
         {
-            if (currentView != null) Destroy(currentView);
-            if (data.Prefab == null) return;
+            var keyString = key.ToString();
+            Debug.Log($"[Addressables] Starting load for: {keyString}");
 
-            currentView = Instantiate(data.Prefab, transform, false);
-            currentView.transform.localPosition = Vector3.zero;
+            if (string.IsNullOrEmpty(keyString))
+            {
+                Debug.LogWarning("[Addressables] LoadData called with empty key.");
+                return null;
+            }
+
+            AsyncOperationHandle<IngredientSO> handle = default;
+            try
+            {
+                handle = Addressables.LoadAssetAsync<IngredientSO>(keyString);
+                await handle.Task;
+
+                if (handle.Status == AsyncOperationStatus.Succeeded)
+                {
+                    return handle.Result;
+                }
+                else
+                {
+                    Debug.LogError($"[Addressables] Could not find SO with key: {keyString}. Status: {handle.Status}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"[Addressables] Exception while loading key '{keyString}': {ex}");
+            }
+
+            return null;
         }
     }
 }

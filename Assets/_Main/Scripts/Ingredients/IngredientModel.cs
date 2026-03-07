@@ -60,9 +60,13 @@ namespace Main.Ingredient
 
         private void AddIngredient(IngredientController addingIngredient)
         {
-            owner.CombinedComponentsId.Add(addingIngredient.DataId);
-            addingIngredient.transform.SetParent(owner.transform);
-            addingIngredient.transform.localPosition = Vector3.zero;
+            var addingData = addingIngredient.Data;
+            var addingID = addingData.Name;
+
+            owner.RecipeController.AddIngredientIDServerRPC(addingID);
+            owner.View.AddView(addingID, addingIngredient.View.MainView);
+
+            GameObject.Destroy(addingIngredient.gameObject);
         }
     }
 
