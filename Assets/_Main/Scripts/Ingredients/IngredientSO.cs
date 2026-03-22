@@ -19,6 +19,10 @@ namespace Main.Ingredient
         private GameObject meshPrefab;
         public GameObject Prefab => meshPrefab;
 
+        [SerializeField]
+        private GameObject cooked_meshPrefab;
+        public GameObject CookedPrefab => cooked_meshPrefab;
+
         private void OnValidate()
         {
             id = name;
@@ -35,6 +39,6 @@ namespace Main.Ingredient
 
     public enum Type
     {
-        None, Dough, Sauce, Topping
+        None, Dough, Sauce, Topping, Pizza
     }
 }

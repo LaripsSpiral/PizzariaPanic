@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Collections;
 using Unity.Netcode;
 using UnityEngine;
@@ -39,6 +40,40 @@ namespace Main.Ingredient
 
             Destroy(go);
             viewByID.Remove(id);
+        }
+
+        public void UpdateCookedView()
+        {
+            Debug.Log($"{this}: Updating Cooked View");
+
+            // Make a snapshot of the keys to avoid modifying the dictionary while iterating.
+            var keys = viewByID.Keys.ToList();
+
+            foreach (var key in keys)
+            {
+                if (!viewByID.TryGetValue(key, out var oldView))
+                    continue;
+
+                var data = IngredientController.LoadData(key).Result;
+                if (data == null || data.CookedPrefab == null)
+                {
+                    Debug.LogWarning($"{this}: {data?.Name ?? key.ToString()} don't have cooked prefab");
+                    continue;
+                }
+
+                // Instantiate cooked
+                var instanceCooked = Instantiate(data.CookedPrefab, oldView.transform.parent);
+                instanceCooked.transform.SetParent(oldView.transform.parent);
+                instanceCooked.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+
+                // Remove old
+                Destroy(oldView);
+
+                // Set new
+                viewByID[key] = instanceCooked;
+            }
+
+            Debug.Log($"{this}: Updated Cooked View");
         }
     }
 }

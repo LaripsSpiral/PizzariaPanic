@@ -39,6 +39,11 @@ MonoBehaviour:
     m_SerializedLabels:
     - Data
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d048ecc1d95b44948920d94cabbf961d
+    m_Address: CookedPizza
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: ff781a2c29b11e143a14b380f6c01ebb, type: 2}
   m_SchemaSet:

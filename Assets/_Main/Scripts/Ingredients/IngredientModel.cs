@@ -22,6 +22,9 @@ namespace Main.Ingredient
 
         public void DoProcess(Processor processBy)
         {
+            if (processBy == Processor.None)
+                return;
+
             // Must match of processor
             if (processesData.ProcessWith != processBy)
             {
@@ -32,13 +35,30 @@ namespace Main.Ingredient
             // Processed
             if (currProcessTime <= 0)
             {
-                owner.SetDataRPC(processesData.ProcessedData.Name);
-                return;
+                HandleProcessed(processBy);
             }
 
             // Decrease process timer;
             Debug.Log($"{this} is Processing");
             currProcessTime -= Time.fixedDeltaTime;
+        }
+
+        public void HandleProcessed(Processor processBy)
+        {
+            ChangedToProcessedData();
+
+            if (processBy == Processor.Oven)
+            {
+                owner.SetCooked();
+                return;
+            }
+            return;
+        }
+
+        public void ChangedToProcessedData()
+        {
+            Debug.Log($"{this}: ChangedToProcessedData");
+            owner.SetDataRPC(processesData.ProcessedData.Name);
         }
 
         public bool TryAddIngredient(IngredientController addingIngredient)

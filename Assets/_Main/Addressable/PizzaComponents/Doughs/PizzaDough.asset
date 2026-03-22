@@ -15,8 +15,9 @@ MonoBehaviour:
   id: PizzaDough
   type: 1
   meshPrefab: {fileID: 7758651969528286419, guid: 688c2c5e772251344b7a6c2535cab021, type: 3}
+  cooked_meshPrefab: {fileID: 7758651969528286419, guid: 4d7014eadf0cc674c84d591cec9029b7, type: 3}
   processData:
     ProcessWith: 2
     ProcessTime: 3
-    ProcessedData: {fileID: 0}
+    ProcessedData: {fileID: 11400000, guid: d048ecc1d95b44948920d94cabbf961d, type: 2}
   isCombineAble: 1

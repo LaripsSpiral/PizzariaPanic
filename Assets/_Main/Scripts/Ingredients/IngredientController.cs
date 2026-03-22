@@ -6,6 +6,7 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using static UnityEngine.UI.GridLayoutGroup;
 
 namespace Main.Ingredient
 {
@@ -32,6 +33,10 @@ namespace Main.Ingredient
         private IngredientModel model = new();
         public IngredientModel Model => model;
 
+        [SerializeField]
+        private bool isCooked;
+        public bool IsCooked => isCooked;
+
         protected void Start()
         {
             model.Init(this);
@@ -49,6 +54,16 @@ namespace Main.Ingredient
         public override void OnNetworkDespawn()
         {
             dataId.OnValueChanged -= HandleDataIDChange;
+        }
+
+        public void SetCooked()
+        {
+            if (isCooked)
+                return;
+
+            isCooked = true;
+            model.ChangedToProcessedData();
+            view.UpdateCookedView();
         }
 
         [Rpc(SendTo.Server)]
