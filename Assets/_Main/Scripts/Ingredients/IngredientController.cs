@@ -61,6 +61,8 @@ namespace Main.Ingredient
             if (isCooked)
                 return;
 
+            Debug.Log($"{this}: Set Cooked");
+
             isCooked = true;
             model.ChangedToProcessedData();
             view.UpdateCookedView();
