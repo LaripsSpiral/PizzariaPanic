@@ -2,52 +2,55 @@ using System;
 using Unity.Netcode;
 using UnityEngine;
 
-[Serializable]
-public class NetworkItemHolder : NetworkBehaviour
+namespace Main.Items.ItemHolder
 {
-    public NetworkVariable<NetworkObjectReference> CurrItemRef = new();
-    public NetworkObject HoldingNetObj => CurrItemRef.Value;
-
-    [SerializeField]
-    private Transform handlingPivot;
-
-    public void InitUpdateParentTransform()
+    [Serializable]
+    public class NetworkItemHolder : NetworkBehaviour
     {
-        CurrItemRef.OnValueChanged += (_, _) => Debug.Log($"{this} changed holding item to {HoldingNetObj}");
-        CurrItemRef.OnValueChanged += UpdateParentTransform;
-    }
+        public NetworkVariable<NetworkObjectReference> CurrItemRef = new();
+        public NetworkObject HoldingNetObj => CurrItemRef.Value;
 
-    private void UpdateParentTransform(NetworkObjectReference oldRef, NetworkObjectReference newRef)
-    {
-        if (!newRef.TryGet(out NetworkObject networkObject))
-            return;
+        [SerializeField]
+        private Transform handlingPivot;
 
-        networkObject.gameObject.SetParentWithTransform(transform, handlingPivot);
-    }
+        public void InitUpdateParentTransform()
+        {
+            CurrItemRef.OnValueChanged += (_, _) => Debug.Log($"{this} changed holding item to {HoldingNetObj}");
+            CurrItemRef.OnValueChanged += UpdateParentTransform;
+        }
 
-    [Rpc(SendTo.Server)]
-    public void HoldItemRPC(NetworkObjectReference spawnedItem)
-    {
-        Debug.Log($"{this} Picked up {spawnedItem}");
-        CurrItemRef.Value = spawnedItem;
-    }
+        private void UpdateParentTransform(NetworkObjectReference oldRef, NetworkObjectReference newRef)
+        {
+            if (!newRef.TryGet(out NetworkObject networkObject))
+                return;
 
-    public void SwapItemFromHolder(NetworkItemHolder networkItemHolder)
-    {
-        SwapItemFromHolderRPC(networkItemHolder.NetworkObject);
-    }
+            networkObject.gameObject.SetParentWithTransform(transform, handlingPivot);
+        }
 
-    [Rpc(SendTo.Server)]
-    private void SwapItemFromHolderRPC(NetworkObjectReference targetHolderRef)
-    {
-        if (!targetHolderRef.TryGet(out NetworkObject networkObject))
-            return;
+        [Rpc(SendTo.Server)]
+        public void HoldItemRPC(NetworkObjectReference spawnedItem)
+        {
+            Debug.Log($"{this} Picked up {spawnedItem}");
+            CurrItemRef.Value = spawnedItem;
+        }
 
-        if (!networkObject.TryGetComponent(out NetworkItemHolder targetHolder))
-            return;
+        public void SwapItemFromHolder(NetworkItemHolder networkItemHolder)
+        {
+            SwapItemFromHolderRPC(networkItemHolder.NetworkObject);
+        }
 
-        Debug.Log($"{this}({HoldingNetObj}) Swapping to {targetHolder}({targetHolder.HoldingNetObj})");
-        (CurrItemRef.Value, targetHolder.CurrItemRef.Value) = (targetHolder.CurrItemRef.Value, CurrItemRef.Value);
+        [Rpc(SendTo.Server)]
+        private void SwapItemFromHolderRPC(NetworkObjectReference targetHolderRef)
+        {
+            if (!targetHolderRef.TryGet(out NetworkObject networkObject))
+                return;
 
+            if (!networkObject.TryGetComponent(out NetworkItemHolder targetHolder))
+                return;
+
+            Debug.Log($"{this}({HoldingNetObj}) Swapping to {targetHolder}({targetHolder.HoldingNetObj})");
+            (CurrItemRef.Value, targetHolder.CurrItemRef.Value) = (targetHolder.CurrItemRef.Value, CurrItemRef.Value);
+
+        }
     }
 }

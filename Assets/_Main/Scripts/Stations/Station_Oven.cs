@@ -1,11 +1,41 @@
+using Main.Ingredient;
+using Unity.Netcode;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Station_Oven : BaseStation
+namespace Main.Station
 {
-    public override void HandleInteract(InputAction.CallbackContext inputCtx, PlayerCharacter character)
+    public class Station_Oven : BaseStation
     {
-        base.HandleInteract(inputCtx, character);
+        private void FixedUpdate()
+        {
+            if (NetworkManager.IsListening)
+                UpdateDoughCookRPC();
+        }
 
-        PlayerPickPlaceInteract(character);
+        public override void HandleInteract(InputAction.CallbackContext inputCtx, PlayerCharacter character)
+        {
+            base.HandleInteract(inputCtx, character);
+
+            PlayerPickPlaceInteract(character);
+        }
+
+        [Rpc(SendTo.Server)]
+        private void UpdateDoughCookRPC()
+        {
+            if (ItemHolder.HoldingNetObj == default)
+                return;
+
+            if (!ItemHolder.HoldingNetObj.TryGetComponent(out IngredientController holdingIngredient))
+                return;
+
+            var holdingData = holdingIngredient.Data;
+            var holdingProcess = holdingData.ProcessData;
+            if (holdingData.Type != Type.Dough || holdingProcess.ProcessWith != Processor.Oven)
+                return;
+
+            Debug.Log("Processing");
+            holdingIngredient.Model.DoProcess(Processor.Oven);
+        }
     }
 }

@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 3725333222874385238}
   - component: {fileID: 9067460066965652736}
   - component: {fileID: 1858117674424819066}
+  - component: {fileID: 4990607857731896806}
+  - component: {fileID: 3584766445135565079}
   m_Layer: 0
   m_Name: _PizzaComponent
   m_TagString: Untagged
@@ -73,4 +75,31 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   <currProcessTime>k__BackingField:
     m_InternalValue: 0
+  recipeController: {fileID: 4990607857731896806}
+  view: {fileID: 3584766445135565079}
   currentData: {fileID: 0}
+--- !u!114 &4990607857731896806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1855462793781205723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad6818394c3e6424e98246fc7cae78a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Main.Recipe.RecipeController
+  ShowTopMostFoldoutHeaderGroup: 1
+--- !u!114 &3584766445135565079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1855462793781205723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d1e35026b4f942438c6b324fd826aeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Main.Ingredient.IngredientView

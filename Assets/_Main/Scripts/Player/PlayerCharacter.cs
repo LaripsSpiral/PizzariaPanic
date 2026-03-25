@@ -1,4 +1,4 @@
-using NaughtyAttributes;
+using Main.Items.ItemHolder;
 using Unity.Netcode;
 using UnityEngine;
 

@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c8ec932135195de4084301612062e5da, type: 3}
-  m_Name: Topping
+  m_Name: CookedPizza
   m_EditorClassIdentifier: Assembly-CSharp::PizzaComponentSO
-  id: Topping
-  type: 3
-  meshPrefab: {fileID: 2452990477877219567, guid: 72f4b395e044bd643a96814a1f5295b2, type: 3}
-  cooked_meshPrefab: {fileID: 2452990477877219567, guid: bd18f55aeb03b114192022a79abeb02a, type: 3}
+  id: CookedPizza
+  type: 4
+  meshPrefab: {fileID: 7758651969528286419, guid: 4d7014eadf0cc674c84d591cec9029b7, type: 3}
+  cooked_meshPrefab: {fileID: 7758651969528286419, guid: 4d7014eadf0cc674c84d591cec9029b7, type: 3}
   processData:
     ProcessWith: 0
-    ProcessTime: 0
+    ProcessTime: 3
     ProcessedData: {fileID: 0}
   isCombineAble: 0

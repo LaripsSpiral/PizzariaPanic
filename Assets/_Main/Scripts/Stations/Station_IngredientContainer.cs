@@ -1,42 +1,45 @@
+using Main.Ingredient;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.TextCore.Text;
 
-public class Station_IngredientContainer : BaseStation
+namespace Main.Station
 {
-    [SerializeField]
-    private PizzaComponentSO ingredientData;
-
-    [SerializeField]
-    private PizzaComponentController pizzaComponentPrefab;
-
-    public override void HandleInteract(InputAction.CallbackContext inputCtx, PlayerCharacter character)
+    public class Station_IngredientContainer : BaseStation
     {
-        base.HandleInteract(inputCtx, character);
+        [SerializeField]
+        private IngredientSO ingredientData;
 
-        PlayerPickPlaceInteract(character);
+        [SerializeField]
+        private IngredientController ingredientControllerPrefab;
 
-        if (ItemHolder.HoldingNetObj)
-            return;
-
-        if (character.ItemHolder.HoldingNetObj != null)
-            return;
-
-        SpawnNetworkIngredientRPC();
-        character.ItemHolder.SwapItemFromHolder(ItemHolder);
-    }
-
-    [Rpc(SendTo.Server)]
-    private void SpawnNetworkIngredientRPC()
-    {
-        var instanceNetworkObj = Instantiate(pizzaComponentPrefab).NetworkObject;
-        instanceNetworkObj.Spawn();
-
-        if (instanceNetworkObj.TryGetComponent(out PizzaComponentController pizzaComponent))
+        public override void HandleInteract(InputAction.CallbackContext inputCtx, PlayerCharacter character)
         {
-            pizzaComponent.SetDataRPC(ingredientData.Name);
-            ItemHolder.HoldItemRPC(instanceNetworkObj);
+            base.HandleInteract(inputCtx, character);
+
+            PlayerPickPlaceInteract(character);
+
+            if (ItemHolder.HoldingNetObj)
+                return;
+
+            if (character.ItemHolder.HoldingNetObj != null)
+                return;
+
+            SpawnNetworkIngredientRPC();
+            character.ItemHolder.SwapItemFromHolder(ItemHolder);
+        }
+
+        [Rpc(SendTo.Server)]
+        private void SpawnNetworkIngredientRPC()
+        {
+            var instanceNetworkObj = Instantiate(ingredientControllerPrefab).NetworkObject;
+            instanceNetworkObj.Spawn();
+
+            if (instanceNetworkObj.TryGetComponent(out IngredientController ingredient))
+            {
+                ingredient.SetDataRPC(ingredientData.Name);
+                ItemHolder.HoldItemRPC(instanceNetworkObj);
+            }
         }
     }
 }
