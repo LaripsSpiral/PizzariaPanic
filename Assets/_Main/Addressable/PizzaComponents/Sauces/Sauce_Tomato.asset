@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c8ec932135195de4084301612062e5da, type: 3}
-  m_Name: Pepperoni_Cooked
+  m_Name: Sauce_Tomato
   m_EditorClassIdentifier: Assembly-CSharp::PizzaComponentSO
-  id: Pepperoni
-  type: 3
-  meshPrefab: {fileID: 2452990477877219567, guid: 90b0677fcf95bdb42962aa016b4aa792, type: 3}
+  id: Tomato_Sauces
+  type: 2
+  meshPrefab: {fileID: 3321455367640471657, guid: 6f79b446f26a54e46b1b4e8e8bc60d8d, type: 3}
   processData:
     ProcessWith: 0
     ProcessTime: 0

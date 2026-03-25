@@ -911,7 +911,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 2764236312
+  GlobalObjectIdHash: 42704013
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -7922,7 +7922,7 @@ MonoBehaviour:
   NetworkConfig:
     ProtocolVersion: 0
     NetworkTransport: {fileID: 2073763262}
-    PlayerPrefab: {fileID: 3568519447971078215, guid: fd313ffe136cf5b409dba760339cf1c6, type: 3}
+    PlayerPrefab: {fileID: 3568519447971078215, guid: 192a71204df83cf48a1300a10a7313a5, type: 3}
     Prefabs:
       NetworkPrefabsLists:
       - {fileID: 11400000, guid: 530ac0a18f4c1d04aa5c4bd88c1dd7f3, type: 2}

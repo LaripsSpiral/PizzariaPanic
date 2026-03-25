@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c8ec932135195de4084301612062e5da, type: 3}
-  m_Name: Pepperoni
+  m_Name: Topping_Shrimp
   m_EditorClassIdentifier: Assembly-CSharp::PizzaComponentSO
-  id: Pepperoni
+  id: Topping_Shrimp
   type: 3
-  meshPrefab: {fileID: 2452990477877219567, guid: 90b0677fcf95bdb42962aa016b4aa792, type: 3}
+  meshPrefab: {fileID: 2754818515264830115, guid: 296ce88d24665024ba390ab07fdd23bd, type: 3}
+  cooked_meshPrefab: {fileID: 2754818515264830115, guid: a1f13aeae546af04a89100b4cf5a3c1e, type: 3}
   processData:
     ProcessWith: 0
     ProcessTime: 0

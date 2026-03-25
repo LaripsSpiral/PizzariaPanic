@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 19153078188316264}
   m_Layer: 0
-  m_Name: Tomato_Sauces
+  m_Name: Sauce_Tomato
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
