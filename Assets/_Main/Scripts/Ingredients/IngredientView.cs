@@ -46,7 +46,7 @@ namespace Main.Ingredient
         {
             Debug.Log($"{this}: Updating Cooked View");
 
-            // Make a snapshot of the keys to avoid modifying the dictionary while iterating.
+            // Make a snapshot
             var keys = viewByID.Keys.ToList();
 
             foreach (var key in keys)

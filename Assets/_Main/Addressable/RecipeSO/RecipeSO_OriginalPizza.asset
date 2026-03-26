@@ -17,6 +17,7 @@ MonoBehaviour:
   Image: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   ingredientSOList:
   - {fileID: 11400000, guid: d048ecc1d95b44948920d94cabbf961d, type: 2}
+  - {fileID: 11400000, guid: 82c4b51c8f98e18489728d451d8e0acd, type: 2}
   IngredientsIDList:
   - utf8LengthInBytes: 11
     bytes:
@@ -32,6 +33,39 @@ MonoBehaviour:
         byte0008: 122
         byte0009: 122
         byte0010: 97
+        byte0011: 0
+        byte0012: 0
+        byte0013: 0
+        byte0014: 0
+        byte0015: 0
+      byte0016: 0
+      byte0017: 0
+      byte0018: 0
+      byte0019: 0
+      byte0020: 0
+      byte0021: 0
+      byte0022: 0
+      byte0023: 0
+      byte0024: 0
+      byte0025: 0
+      byte0026: 0
+      byte0027: 0
+      byte0028: 0
+      byte0029: 0
+  - utf8LengthInBytes: 5
+    bytes:
+      offset0000:
+        byte0000: 83
+        byte0001: 97
+        byte0002: 117
+        byte0003: 99
+        byte0004: 101
+        byte0005: 0
+        byte0006: 0
+        byte0007: 0
+        byte0008: 0
+        byte0009: 0
+        byte0010: 0
         byte0011: 0
         byte0012: 0
         byte0013: 0

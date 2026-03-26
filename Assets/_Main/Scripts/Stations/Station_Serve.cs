@@ -34,7 +34,7 @@ namespace Main.Station
 
             Debug.Log($"{this}, Sending {orderedRecipe} order");
 
-            if (!OrderManager.Instance.TryRemoveOrder(orderedRecipe))
+            if (!OrderManager.Instance.TryRemoveOrder(orderedRecipe.ID))
             {
                 Debug.LogWarning($"{this}, Failed to Sending {orderedRecipe} order");
             }

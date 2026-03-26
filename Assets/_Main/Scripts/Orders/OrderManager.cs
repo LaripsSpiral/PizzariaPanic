@@ -3,19 +3,19 @@ using Main.Recipe;
 using NaughtyAttributes;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Collections;
+using Unity.Netcode;
 using UnityEngine;
-
 namespace Main.Order
 {
-    public partial class OrderManager : MonoBehaviour
+    public partial class OrderManager : NetworkBehaviour
     {
         [SerializeField]
         private OrderUI orderUI;
 
         public static OrderManager Instance;
 
-        [SerializeField, ReadOnly]
-        private List<RecipeSO> orderList;
+        private NetworkList<FixedString32Bytes> orderList = new();
 
         [SerializeField]
         private List<RecipeSO> recipeList = new();
@@ -30,22 +30,25 @@ namespace Main.Order
             orderUI.Init();
         }
 
-        [Button]
+        [ContextMenu("Add Random Order")]
         private void AddRandomOrder()
         {
-            AddOrder(recipeList[Random.Range(0, recipeList.Count+1)]);
+            var randIndex = Random.Range(0, recipeList.Count);
+            AddOrder(recipeList[randIndex]); ;
         }
 
-        public void AddOrder(RecipeSO recipeSO)
+        private void AddOrder(RecipeSO recipeSO)
         {
-            orderList.Add(recipeSO);
+            Debug.Log($"{this}, added {recipeSO}");
+            orderList.Add(recipeSO.ID);
+            Debug.Log(orderList);
         }
 
-        public bool TryRemoveOrder(RecipeSO recipeSO)
+        public bool TryRemoveOrder(string recipeID)
         {
-            if (orderList.Contains(recipeSO))
+            if (orderList.Contains(recipeID))
             {
-                orderList.Remove(recipeSO);
+                orderList.Remove(recipeID);
                 return true;
             }
             return false;
@@ -53,8 +56,10 @@ namespace Main.Order
 
         public RecipeSO FindOrder(RecipeController findingRecipeController)
         {
-            foreach (var recipe in orderList)
+            foreach (var order in orderList)
             {
+                var recipe = recipeList.First(recipe => recipe.ID == order);
+
                 var ingredientsIDs = recipe.IngredientsIDList;
                 var findingIngredientsIDs = findingRecipeController.IngredientsIDNetList.AsNativeArray();
 
