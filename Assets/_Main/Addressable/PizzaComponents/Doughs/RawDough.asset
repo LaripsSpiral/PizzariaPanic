@@ -15,6 +15,7 @@ MonoBehaviour:
   id: RawDough
   type: 1
   meshPrefab: {fileID: 4981542757313139140, guid: 1fd07aa6887e1af4bba09373a85aabb1, type: 3}
+  cooked_meshPrefab: {fileID: 0}
   processData:
     ProcessWith: 1
     ProcessTime: 2

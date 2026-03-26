@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8ec932135195de4084301612062e5da, type: 3}
+  m_Name: Topping_Bacon
+  m_EditorClassIdentifier: Assembly-CSharp::PizzaComponentSO
+  id: Topping_Bacon
+  type: 3
+  meshPrefab: {fileID: 2754818515264830115, guid: d49bbacea86d68140af70a82df2058e3, type: 3}
+  cooked_meshPrefab: {fileID: 2754818515264830115, guid: b67a04fdd89fca44cba2e82a7e4612d2, type: 3}
+  processData:
+    ProcessWith: 0
+    ProcessTime: 0
+    ProcessedData: {fileID: 0}
+  isCombineAble: 0
