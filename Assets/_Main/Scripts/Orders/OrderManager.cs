@@ -1,5 +1,6 @@
 using Main.Order.UI;
 using Main.Recipe;
+using NaughtyAttributes;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -13,8 +14,11 @@ namespace Main.Order
 
         public static OrderManager Instance;
 
+        [SerializeField, ReadOnly]
+        private List<RecipeSO> orderList;
+
         [SerializeField]
-        private List<RecipeSO> recipeList;
+        private List<RecipeSO> recipeList = new();
 
         public void Awake()
         {
@@ -26,16 +30,22 @@ namespace Main.Order
             orderUI.Init();
         }
 
+        [Button]
+        private void AddRandomOrder()
+        {
+            AddOrder(recipeList[Random.Range(0, recipeList.Count+1)]);
+        }
+
         public void AddOrder(RecipeSO recipeSO)
         {
-            recipeList.Add(recipeSO);
+            orderList.Add(recipeSO);
         }
 
         public bool TryRemoveOrder(RecipeSO recipeSO)
         {
-            if (recipeList.Contains(recipeSO))
+            if (orderList.Contains(recipeSO))
             {
-                recipeList.Remove(recipeSO);
+                orderList.Remove(recipeSO);
                 return true;
             }
             return false;
@@ -43,7 +53,7 @@ namespace Main.Order
 
         public RecipeSO FindOrder(RecipeController findingRecipeController)
         {
-            foreach (var recipe in recipeList)
+            foreach (var recipe in orderList)
             {
                 var ingredientsIDs = recipe.IngredientsIDList;
                 var findingIngredientsIDs = findingRecipeController.IngredientsIDNetList.AsNativeArray();
