@@ -32,5 +32,11 @@ namespace Main.Order.UI
 
             orderPaperList.Remove(targetOrder);
         }
+
+        public void Clear()
+        {
+            orderPaperList.ForEach(item => Destroy(item.gameObject));
+            orderPaperList.Clear();
+        }
     }
 }
