@@ -1,3 +1,6 @@
+using Main.Recipe;
+using NaughtyAttributes;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Main.Order.UI
@@ -7,9 +10,27 @@ namespace Main.Order.UI
         [SerializeField]
         private OrderPaper orderPaperPrefab;
 
-        public void Init()
-        {
+        [SerializeField]
+        private Transform container;
 
+        [SerializeField, ReadOnly]
+        private List<OrderPaper> orderPaperList = new();
+
+        public void Add(RecipeSO recipeSO)
+        {
+            var newOrder = Instantiate(orderPaperPrefab, container);
+            newOrder.Init(recipeSO);
+
+            orderPaperList.Add(newOrder);
+        }
+
+        public void Remove(string recipeID)
+        {
+            var targetOrder = orderPaperList.Find(order => order.ID == recipeID);
+            if (targetOrder == null)
+                return;
+
+            orderPaperList.Remove(targetOrder);
         }
     }
 }

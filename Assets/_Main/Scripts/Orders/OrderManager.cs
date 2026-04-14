@@ -10,10 +10,10 @@ namespace Main.Order
 {
     public partial class OrderManager : NetworkBehaviour
     {
-        [SerializeField]
-        private OrderUI orderUI;
-
         public static OrderManager Instance;
+        [SerializeField]
+
+        private OrderUI orderUI;
 
         private NetworkList<FixedString32Bytes> orderList = new();
 
@@ -27,7 +27,6 @@ namespace Main.Order
 
         private void Start()
         {
-            orderUI.Init();
         }
 
         [ContextMenu("Add Random Order")]
@@ -41,6 +40,7 @@ namespace Main.Order
         {
             Debug.Log($"{this}, added {recipeSO}");
             orderList.Add(recipeSO.ID);
+            orderUI.Add(recipeSO);
             Debug.Log(orderList);
         }
 
@@ -49,12 +49,13 @@ namespace Main.Order
             if (orderList.Contains(recipeID))
             {
                 orderList.Remove(recipeID);
+                orderUI.Remove(recipeID);
                 return true;
             }
             return false;
         }
 
-        public RecipeSO FindOrder(RecipeController findingRecipeController)
+        public RecipeSO FindRecipeInOrder(RecipeController findingRecipeController)
         {
             foreach (var order in orderList)
             {
@@ -71,6 +72,11 @@ namespace Main.Order
             };
 
             return null;
+        }
+
+        public RecipeSO GetRecipeFromID(FixedString32Bytes id)
+        {
+            return recipeList.Find(recipe => recipe.ID == id);
         }
     }
 }

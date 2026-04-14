@@ -24,7 +24,7 @@ namespace Main.Station
                 return;
 
             var recipeController = holderPizzaComponent.RecipeController;
-            var orderedRecipe = OrderManager.Instance.FindOrder(recipeController);
+            var orderedRecipe = OrderManager.Instance.FindRecipeInOrder(recipeController);
 
             if (!orderedRecipe)
             {

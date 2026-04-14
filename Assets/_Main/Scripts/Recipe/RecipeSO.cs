@@ -18,6 +18,8 @@ namespace Main.Recipe
 
         [SerializeField]
         private List<IngredientSO> ingredientSOList = new();
+        public List<IngredientSO> IngredientList => ingredientSOList;
+
         public List<FixedString32Bytes> IngredientsIDList = new();
 
         private void OnValidate()

@@ -16,6 +16,10 @@ namespace Main.Ingredient
         public Type Type => type;
 
         [SerializeField]
+        private Sprite icon;
+        public Sprite Icon => icon;
+
+        [SerializeField]
         private GameObject meshPrefab;
         public GameObject Prefab => meshPrefab;
 
