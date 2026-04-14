@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8ec932135195de4084301612062e5da, type: 3}
   m_Name: Sauce_BBQ
   m_EditorClassIdentifier: Assembly-CSharp::PizzaComponentSO
-  id: Sauces_BBQ
+  id: Sauce_BBQ
   type: 2
-  meshPrefab: {fileID: 0}
+  icon: {fileID: 0}
+  meshPrefab: {fileID: 3321455367640471657, guid: 488aa0d8a4007aa49a2262ff3c7e2bca, type: 3}
   cooked_meshPrefab: {fileID: 0}
   processData:
     ProcessWith: 0
