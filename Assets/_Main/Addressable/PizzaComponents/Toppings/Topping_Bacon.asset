@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PizzaComponentSO
   id: Topping_Bacon
   type: 3
-  meshPrefab: {fileID: 2754818515264830115, guid: d49bbacea86d68140af70a82df2058e3, type: 3}
-  cooked_meshPrefab: {fileID: 2754818515264830115, guid: b67a04fdd89fca44cba2e82a7e4612d2, type: 3}
+  icon: {fileID: 0}
+  meshPrefab: {fileID: 5109901152100896045, guid: 3689a57c14824874594e74197b72646c, type: 3}
+  cooked_meshPrefab: {fileID: 5109901152100896045, guid: c6de15043410ff14a8ab434df673904d, type: 3}
   processData:
     ProcessWith: 0
     ProcessTime: 0
