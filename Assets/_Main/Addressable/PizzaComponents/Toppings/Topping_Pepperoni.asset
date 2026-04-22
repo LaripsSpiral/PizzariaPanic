@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PizzaComponentSO
   id: Topping_Pepperoni
   type: 3
-  icon: {fileID: 21300000, guid: aa262a1cb61dcc6469534fbb67c572a1, type: 3}
+  icon: {fileID: 21300000, guid: ade5ea5f5e9d6074dbf63d17533d23d6, type: 3}
   meshPrefab: {fileID: 2452990477877219567, guid: 90b0677fcf95bdb42962aa016b4aa792, type: 3}
   cooked_meshPrefab: {fileID: 2452990477877219567, guid: 0fd83a867f23dd24bab827caa75a2182, type: 3}
   processData:

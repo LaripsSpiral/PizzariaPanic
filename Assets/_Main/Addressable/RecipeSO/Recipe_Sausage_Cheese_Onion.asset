@@ -1,0 +1,155 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f22d5d047d8f2c478ac2260b5bb65a6, type: 3}
+  m_Name: Recipe_Sausage_Cheese_Onion
+  m_EditorClassIdentifier: Assembly-CSharp::Main.Recipe.RecipeSO
+  ID: Recipe_Sausage_Cheese_Onion
+  DisplayName: OriginalPizza
+  Image: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  ingredientSOList:
+  - {fileID: 11400000, guid: d048ecc1d95b44948920d94cabbf961d, type: 2}
+  - {fileID: 11400000, guid: c9740dfb0ea08c748abf7f75449a1fb6, type: 2}
+  - {fileID: 11400000, guid: d1cd4f1d5354c154990ea6e536d2d91f, type: 2}
+  - {fileID: 11400000, guid: 9e2510a5aadbddd44a8ceeabdf750328, type: 2}
+  IngredientsIDList:
+  - utf8LengthInBytes: 11
+    bytes:
+      offset0000:
+        byte0000: 67
+        byte0001: 111
+        byte0002: 111
+        byte0003: 107
+        byte0004: 101
+        byte0005: 100
+        byte0006: 80
+        byte0007: 105
+        byte0008: 122
+        byte0009: 122
+        byte0010: 97
+        byte0011: 0
+        byte0012: 0
+        byte0013: 0
+        byte0014: 0
+        byte0015: 0
+      byte0016: 0
+      byte0017: 0
+      byte0018: 0
+      byte0019: 0
+      byte0020: 0
+      byte0021: 0
+      byte0022: 0
+      byte0023: 0
+      byte0024: 0
+      byte0025: 0
+      byte0026: 0
+      byte0027: 0
+      byte0028: 0
+      byte0029: 0
+  - utf8LengthInBytes: 15
+    bytes:
+      offset0000:
+        byte0000: 84
+        byte0001: 111
+        byte0002: 112
+        byte0003: 112
+        byte0004: 105
+        byte0005: 110
+        byte0006: 103
+        byte0007: 95
+        byte0008: 83
+        byte0009: 97
+        byte0010: 117
+        byte0011: 115
+        byte0012: 97
+        byte0013: 103
+        byte0014: 101
+        byte0015: 0
+      byte0016: 0
+      byte0017: 0
+      byte0018: 0
+      byte0019: 0
+      byte0020: 0
+      byte0021: 0
+      byte0022: 0
+      byte0023: 0
+      byte0024: 0
+      byte0025: 0
+      byte0026: 0
+      byte0027: 0
+      byte0028: 0
+      byte0029: 0
+  - utf8LengthInBytes: 14
+    bytes:
+      offset0000:
+        byte0000: 84
+        byte0001: 111
+        byte0002: 112
+        byte0003: 112
+        byte0004: 105
+        byte0005: 110
+        byte0006: 103
+        byte0007: 95
+        byte0008: 67
+        byte0009: 104
+        byte0010: 101
+        byte0011: 101
+        byte0012: 115
+        byte0013: 101
+        byte0014: 0
+        byte0015: 0
+      byte0016: 0
+      byte0017: 0
+      byte0018: 0
+      byte0019: 0
+      byte0020: 0
+      byte0021: 0
+      byte0022: 0
+      byte0023: 0
+      byte0024: 0
+      byte0025: 0
+      byte0026: 0
+      byte0027: 0
+      byte0028: 0
+      byte0029: 0
+  - utf8LengthInBytes: 13
+    bytes:
+      offset0000:
+        byte0000: 84
+        byte0001: 111
+        byte0002: 112
+        byte0003: 112
+        byte0004: 105
+        byte0005: 110
+        byte0006: 103
+        byte0007: 95
+        byte0008: 79
+        byte0009: 110
+        byte0010: 105
+        byte0011: 111
+        byte0012: 110
+        byte0013: 0
+        byte0014: 0
+        byte0015: 0
+      byte0016: 0
+      byte0017: 0
+      byte0018: 0
+      byte0019: 0
+      byte0020: 0
+      byte0021: 0
+      byte0022: 0
+      byte0023: 0
+      byte0024: 0
+      byte0025: 0
+      byte0026: 0
+      byte0027: 0
+      byte0028: 0
+      byte0029: 0
