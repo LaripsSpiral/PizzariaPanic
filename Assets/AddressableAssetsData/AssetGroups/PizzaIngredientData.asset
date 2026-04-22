@@ -15,6 +15,16 @@ MonoBehaviour:
   m_GroupName: PizzaIngredientData
   m_GUID: 54855331cf5f0804aa5d363506703895
   m_SerializeEntries:
+  - m_GUID: 0e81efff712372f478e6faade2d0cf95
+    m_Address: Topping_Pepperoni
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 16041704362ece84e9e6f872120cb36b
+    m_Address: Topping_Shrimp
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1bcbf152d052f6b44a728b7f5b1ac7c8
     m_Address: PizzaDough
     m_ReadOnly: 0
@@ -39,8 +49,33 @@ MonoBehaviour:
     m_SerializedLabels:
     - Data
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8d3bf6dbda518e84dae5c241448585f1
+    m_Address: Topping_Bacon
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9e2510a5aadbddd44a8ceeabdf750328
+    m_Address: Topping_Onion
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: be434893e073e4841b0552d7c3f521c8
+    m_Address: Topping_Olive
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c9740dfb0ea08c748abf7f75449a1fb6
+    m_Address: Topping_Sausage
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d048ecc1d95b44948920d94cabbf961d
     m_Address: CookedPizza
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d1cd4f1d5354c154990ea6e536d2d91f
+    m_Address: Topping_Cheese
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

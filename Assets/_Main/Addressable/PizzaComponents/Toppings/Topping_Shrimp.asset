@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PizzaComponentSO
   id: Topping_Shrimp
   type: 3
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 77acee19d67df2b4193269791f73e48c, type: 3}
   meshPrefab: {fileID: 4266057825663924796, guid: 9a0c6a4fc41ef3645b80dae54c74f4c9, type: 3}
   cooked_meshPrefab: {fileID: 4266057825663924796, guid: 296ce88d24665024ba390ab07fdd23bd, type: 3}
   processData:

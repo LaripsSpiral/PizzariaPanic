@@ -2,6 +2,7 @@ using Main.Ingredient;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 namespace Main.Station
 {
@@ -12,6 +13,17 @@ namespace Main.Station
 
         [SerializeField]
         private IngredientController ingredientControllerPrefab;
+
+        [SerializeField]
+        private Image ingredientIcon;
+
+        private void OnValidate()
+        {
+            if (ingredientData != null)
+            {
+                ingredientIcon.sprite = ingredientData.Icon;
+            }
+        }
 
         public override void HandleInteract(InputAction.CallbackContext inputCtx, PlayerCharacter character)
         {

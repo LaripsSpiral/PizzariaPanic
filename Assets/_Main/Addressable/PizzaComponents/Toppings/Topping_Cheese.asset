@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8ec932135195de4084301612062e5da, type: 3}
   m_Name: Topping_Cheese
   m_EditorClassIdentifier: Assembly-CSharp::PizzaComponentSO
-  id: Cheese
+  id: Topping_Cheese
   type: 3
+  icon: {fileID: 21300000, guid: 4cdb43fab4bb1f045a9c4f48b6962f00, type: 3}
   meshPrefab: {fileID: 2452990477877219567, guid: 458416b2d05b3e54083c96f258a65756, type: 3}
   cooked_meshPrefab: {fileID: 2452990477877219567, guid: 48a7c3a96ad44db408243ae134025590, type: 3}
   processData:
