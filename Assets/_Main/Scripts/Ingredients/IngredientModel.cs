@@ -1,5 +1,6 @@
 using NaughtyAttributes;
 using System;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace Main.Ingredient
@@ -76,19 +77,9 @@ namespace Main.Ingredient
             if (owner.Data.Type != Type.Dough || addingTargetType == Type.Dough)
                 return false;
 
-            AddIngredient(addingIngredient);
+            // Delegate to the controller (which IS a NetworkBehaviour and can send real RPCs)
+            owner.AddIngredientServerRPC(addingIngredient.NetworkObject);
             return true;
-        }
-
-        private void AddIngredient(IngredientController addingIngredient)
-        {
-            var addingData = addingIngredient.Data;
-            var addingID = addingData.Name;
-
-            owner.RecipeController.AddIngredientIDServerRPC(addingID);
-            owner.View.AddView(addingID, addingIngredient.View.MainView);
-
-            GameObject.Destroy(addingIngredient.gameObject);
         }
     }
 

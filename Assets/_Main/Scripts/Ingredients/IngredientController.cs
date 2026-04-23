@@ -65,6 +65,14 @@ namespace Main.Ingredient
 
             isCooked = true;
             model.ChangedToProcessedData();
+
+            // Broadcast cooked view update to all clients (SetCooked only runs on server)
+            UpdateCookedViewClientRPC();
+        }
+
+        [Rpc(SendTo.ClientsAndHost)]
+        private void UpdateCookedViewClientRPC()
+        {
             view.UpdateCookedView();
         }
 
@@ -72,6 +80,54 @@ namespace Main.Ingredient
         public void SetDataRPC(string dataID)
         {
             dataId.Value = dataID ?? string.Empty;
+        }
+
+        /// <summary>
+        /// Server RPC: Adds an ingredient into this ingredient (e.g. topping onto dough).
+        /// Called from IngredientModel.TryAddIngredient via the controller since
+        /// IngredientModel is not a NetworkBehaviour and cannot send RPCs.
+        /// </summary>
+        [Rpc(SendTo.Server)]
+        public void AddIngredientServerRPC(NetworkObjectReference addingIngredientRef)
+        {
+            if (!addingIngredientRef.TryGet(out NetworkObject netObj))
+                return;
+
+            if (!netObj.TryGetComponent(out IngredientController addingIngredient))
+                return;
+
+            var addingID = addingIngredient.Data.Name;
+
+            // We're on the server — write directly to the NetworkList
+            recipeController.IngredientsIDNetList.Add(addingID);
+
+            // Tell all clients to load the visual for this ingredient
+            AddViewClientRPC(addingID);
+
+            // Properly despawn the added ingredient's NetworkObject (server-authoritative)
+            netObj.Despawn();
+        }
+
+        /// <summary>
+        /// Client RPC: Each client loads the ingredient view from Addressables independently.
+        /// </summary>
+        [Rpc(SendTo.ClientsAndHost)]
+        private void AddViewClientRPC(string ingredientId)
+        {
+            LoadAndAddView(ingredientId);
+        }
+
+        private async void LoadAndAddView(string ingredientId)
+        {
+            var data = await LoadData(ingredientId);
+            if (data == null)
+            {
+                Debug.LogError($"[IngredientController] LoadAndAddView: failed to load data for '{ingredientId}'");
+                return;
+            }
+
+            var go = view.LoadView(data);
+            view.AddView(ingredientId, go);
         }
 
         private async void HandleDataIDChange(FixedString32Bytes previousValue, FixedString32Bytes newValue)
@@ -88,12 +144,20 @@ namespace Main.Ingredient
                 var data = await LoadData(newValue);
                 currentData = Instantiate(data);
 
-                // Apply New
-                recipeController.AddIngredientIDServerRPC(newValue);
-                view.LoadView(data);
+                // Only modify the recipe list on the server to avoid duplicates.
+                // HandleDataIDChange fires on ALL clients via OnValueChanged,
+                // so without this guard each client would add/remove the ID,
+                // causing the recipe list to have N copies (one per player).
+                if (IsServer)
+                {
+                    recipeController.IngredientsIDNetList.Add(newValue);
 
-                // Remove Old
-                recipeController.RemoveIngredientIDServerRPC(previousValue);
+                    if (!string.IsNullOrEmpty(previousValue.ToString()))
+                        recipeController.IngredientsIDNetList.Remove(previousValue);
+                }
+
+                // Visual updates run on every client
+                view.LoadView(data);
                 view.RemoveView(previousValue);
             }
             catch (Exception ex)

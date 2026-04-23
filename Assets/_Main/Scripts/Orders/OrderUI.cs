@@ -30,7 +30,10 @@ namespace Main.Order.UI
             if (targetOrder == null)
                 return;
 
+            var obj = targetOrder.gameObject;
             orderPaperList.Remove(targetOrder);
+
+            Destroy(obj);
         }
 
         public void Clear()
