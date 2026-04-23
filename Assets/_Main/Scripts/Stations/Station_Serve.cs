@@ -37,10 +37,13 @@ namespace Main.Station
             if (!OrderManager.Instance.TrySentOrder(orderedRecipe.ID))
             {
                 Debug.LogWarning($"{this}, Failed to Sending {orderedRecipe} order");
+                GameManager.Instance.Stat.MistakeFail.Value++;
+                Destroy(recipeController.gameObject);
             }
             else
             {
                 Debug.Log($"{this}, Sent {orderedRecipe} order");
+                GameManager.Instance.Stat.SentOrder.Value++;
                 Destroy(ItemHolder.HoldingNetObj.gameObject);
             }
         }

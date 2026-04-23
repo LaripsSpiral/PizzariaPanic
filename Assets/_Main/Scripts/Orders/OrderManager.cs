@@ -20,7 +20,7 @@ namespace Main.Order
         [Header("Seeding & Limits")]
         [SerializeField] private int randomSeed = 12345;
         [SerializeField] private int maxConcurrentOrders = 5;
-        private int totalOrdersForRound => GameManager.Instance.TotalOrder;
+        private int totalOrdersForRound => GameManager.Instance.Stat.TotalOrder;
 
         [Header("Timings")]
         [SerializeField] private float timeBetweenOrders = 10f;
@@ -43,7 +43,7 @@ namespace Main.Order
         {
             if (IsServer)
             {
-                seededRandom = new System.Random(randomSeed);
+                seededRandom = new System.Random(randomSeed * (int)Time.time);
                 spawnTimer = timeBetweenOrders;
             }
 
@@ -136,7 +136,6 @@ namespace Main.Order
                 if (orderList[i].ToString() == recipeID)
                 {
                     orderList.RemoveAt(i);
-                    GameManager.Instance.SentOrder.Value++;
                     return true;
                 }
             }

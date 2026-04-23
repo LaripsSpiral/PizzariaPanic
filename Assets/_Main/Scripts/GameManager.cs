@@ -1,7 +1,5 @@
-using System;
 using Unity.Netcode;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
 
 public class GameManager : NetworkBehaviour
 {
@@ -9,12 +7,13 @@ public class GameManager : NetworkBehaviour
 
     public bool IsRoundStarted = false;
 
-    public int TotalOrder = 10;
-
-    public NetworkVariable<int> SentOrder = new();
+    public Stat Stat;
 
     [SerializeField]
     private ProgressUI progressUI;
+
+    [SerializeField]
+    private ResultController resultController;
 
     public void Awake()
     {
@@ -23,16 +22,17 @@ public class GameManager : NetworkBehaviour
 
     public void Start()
     {
-        SentOrder.OnValueChanged += (_,_) => UpdateProgress();
+        Stat.SentOrder.OnValueChanged += (_,_) => UpdateProgress();
+        Stat.MistakeFail.OnValueChanged += (_,_) => UpdateMistake();
         UpdateProgress();
     }
 
     [ContextMenu("StartGame")]
-    private void StartGame()
-    {
-        if (!IsServer)
-            return;
+    private void StartGame() => StartGameRPC();
 
+    [Rpc(SendTo.Server)]
+    public void StartGameRPC()
+    {
         Debug.Log("[GameManager] Start Game");
         IsRoundStarted = true;
     }
@@ -44,16 +44,24 @@ public class GameManager : NetworkBehaviour
 
         Debug.Log("[GameManager] Game Over");
         IsRoundStarted = false;
+        resultController.Completed();
     }
 
     private void UpdateProgress()
     {
-        var value = (float)SentOrder.Value / (float)TotalOrder;
-        progressUI.Setup(value);
+        progressUI.Setup(Stat.SentOrder.Value, Stat.TotalOrder);
 
-
-        if (SentOrder.Value < TotalOrder)
+        if (Stat.SentOrder.Value < Stat.TotalOrder)
             return;
+
         GameOver();
+    }
+
+    private void UpdateMistake()
+    {
+        progressUI.UpdateStar(Stat.GetStarScore());
+
+        if (Stat.MistakeFail.Value >= Stat.MaxFailCount)
+            resultController.Failed();
     }
 }
