@@ -4,6 +4,8 @@ using UnityEngine.InputSystem;
 
 public class Interactor : MonoBehaviour
 {
+    [SerializeField]
+    private Transform pivot;
 
     [SerializeField]
     private LayerMask interactionMask;
@@ -47,14 +49,14 @@ public class Interactor : MonoBehaviour
 
         float nearestSqrDist = range * range;
 
-        int count = Physics.OverlapSphereNonAlloc(transform.position, range, allocateInteractions, interactionMask);
+        int count = Physics.OverlapSphereNonAlloc(pivot.position, range, allocateInteractions, interactionMask);
 
         for (int i = 0; i < count; i++)
         {
             if (!allocateInteractions[i].TryGetComponent(out IInteractable interactable))
                 continue;
 
-            var diff = interactable.Transform.position - transform.position;
+            var diff = interactable.Transform.position - pivot.position;
             var distSqr = diff.sqrMagnitude;
 
             if (distSqr < nearestSqrDist)
@@ -69,6 +71,6 @@ public class Interactor : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, range);
+        Gizmos.DrawWireSphere(pivot.position, range);
     }
 }

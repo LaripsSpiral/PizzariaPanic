@@ -86,7 +86,7 @@ namespace Main.Ingredient
             try
             {
                 var data = await LoadData(newValue);
-                currentData = data;
+                currentData = Instantiate(data);
 
                 // Apply New
                 recipeController.AddIngredientIDServerRPC(newValue);

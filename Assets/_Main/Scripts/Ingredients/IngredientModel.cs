@@ -58,7 +58,9 @@ namespace Main.Ingredient
         public void ChangedToProcessedData()
         {
             Debug.Log($"{this}: ChangedToProcessedData");
-            owner.SetDataRPC(processesData.ProcessedData.Name);
+
+            if (processesData.ProcessedData != null)
+                owner.SetDataRPC(processesData.ProcessedData.Name);
         }
 
         public bool TryAddIngredient(IngredientController addingIngredient)
