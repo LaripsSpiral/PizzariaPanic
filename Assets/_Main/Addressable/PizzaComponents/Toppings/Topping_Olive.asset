@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PizzaComponentSO
   id: Topping_Olive
   type: 3
-  icon: {fileID: 21300000, guid: b3351b910fd3c5c4aa0cc71c54bc6389, type: 3}
+  icon: {fileID: 21300000, guid: 41046aa3f7b52044ca5915df107bd22c, type: 3}
   meshPrefab: {fileID: 6049854628600326758, guid: 92e78598b46cb1e458565b73fc9d4f9a, type: 3}
   cooked_meshPrefab: {fileID: 6049854628600326758, guid: 92e78598b46cb1e458565b73fc9d4f9a, type: 3}
   processData:
