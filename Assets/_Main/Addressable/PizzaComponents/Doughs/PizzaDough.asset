@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PizzaComponentSO
   id: PizzaDough
   type: 1
-  icon: {fileID: 21300000, guid: b3ef7731e9e8d98418c55b5419218543, type: 3}
+  icon: {fileID: 21300000, guid: 9d05cf1d7c70ad342b35b9fec0c38ef1, type: 3}
   meshPrefab: {fileID: 7758651969528286419, guid: 688c2c5e772251344b7a6c2535cab021, type: 3}
   cooked_meshPrefab: {fileID: 7758651969528286419, guid: 213861bf974d2bf45b28fd07c3120b7c, type: 3}
   processData:

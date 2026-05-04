@@ -20,6 +20,9 @@ public class PlayerCharacter : NetworkBehaviour
 
     private Vector3 moveDir;
 
+    [SerializeField]
+    private Animator anim;
+
     private void OnValidate()
     {
         rb ??= GetComponent<Rigidbody>();
@@ -33,6 +36,7 @@ public class PlayerCharacter : NetworkBehaviour
     private void FixedUpdate()
     {
         UpdateRotation();
+        anim.SetFloat("vel", rb.linearVelocity.sqrMagnitude);
     }
 
     [Rpc(SendTo.Server)]
