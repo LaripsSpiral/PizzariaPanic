@@ -1,6 +1,8 @@
 using Main.Items.ItemHolder;
 using NaughtyAttributes;
+using System;
 using System.Threading.Tasks;
+using Unity.Multiplayer.Center.NetcodeForGameObjectsExample.DistributedAuthority;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -29,15 +31,15 @@ public class PlayerCharacter : NetworkBehaviour
     {
         rb ??= GetComponent<Rigidbody>();
     }
-
-    private void Start()
+    private void Awake()
     {
         ItemHolder.InitUpdateParentTransform();
     }
 
     public override void OnNetworkSpawn()
     {
-        RandomSpawnPointRpc();
+        if (IsOwner)
+            RandomSpawnPointRpc();
     }
 
     private void FixedUpdate()
