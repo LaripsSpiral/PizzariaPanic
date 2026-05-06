@@ -13,13 +13,19 @@ public class ProgressUI : MonoBehaviour
     [SerializeField]
     private TMP_Text progessText;
 
-    public void Setup(int currentSent, int goalSent)
+    [SerializeField]
+    private TMP_Text mistakeText;
+
+    public void SetProgress(int currentSent, int goalSent)
     {
-        progessText.text = $"Orders {currentSent} / {goalSent}";
+        progessText.text = $"{currentSent}/{goalSent}";
+        progressBar.fillAmount = currentSent/goalSent;
     }
 
-    public void UpdateStar(int starCount)
+    public void SetMistake(int starCount, int maxMistake)
     {
+        mistakeText.text = $"{maxMistake - starCount}/{maxMistake}";
+
         for (int i = 0; i < stars.Length; i++)
         {
             stars[i].gameObject.SetActive(i <= starCount - 1);

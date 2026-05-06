@@ -25,6 +25,7 @@ public class GameManager : NetworkBehaviour
         Stat.SentOrder.OnValueChanged += (_,_) => UpdateProgress();
         Stat.MistakeFail.OnValueChanged += (_,_) => UpdateMistake();
         UpdateProgress();
+        UpdateMistake();
     }
 
     [ContextMenu("StartGame")]
@@ -49,7 +50,7 @@ public class GameManager : NetworkBehaviour
 
     private void UpdateProgress()
     {
-        progressUI.Setup(Stat.SentOrder.Value, Stat.TotalOrder);
+        progressUI.SetProgress(Stat.SentOrder.Value, Stat.TotalOrder);
 
         if (Stat.SentOrder.Value < Stat.TotalOrder)
             return;
@@ -59,7 +60,7 @@ public class GameManager : NetworkBehaviour
 
     private void UpdateMistake()
     {
-        progressUI.UpdateStar(Stat.GetStarScore());
+        progressUI.SetMistake(Stat.GetStarScore(), Stat.MaxFailCount);
 
         if (Stat.MistakeFail.Value >= Stat.MaxFailCount)
             resultController.Failed();

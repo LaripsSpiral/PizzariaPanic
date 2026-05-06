@@ -1,17 +1,16 @@
-using System.Threading.Tasks;
 using UnityEngine;
 
 public class ClientSingleton : MonoBehaviour
 {
     private static ClientSingleton instance;
     public ClientGameManager GameManager { get; private set; }
+
     public static ClientSingleton Instance
     {
         get
         {
-            if (instance != null) { return instance; }
+            if (instance != null) return instance;
             instance = FindFirstObjectByType<ClientSingleton>();
-
             if (instance == null)
             {
                 Debug.LogError("No ClientSingleton in the scene!");
@@ -20,20 +19,15 @@ public class ClientSingleton : MonoBehaviour
             return instance;
         }
     }
-    void Start()
+
+    private void Awake()
     {
         DontDestroyOnLoad(gameObject);
+        CreateClient(); // Initialize the manager!
     }
 
-    public async Task<bool> CreateClient()
+    public void CreateClient()
     {
         GameManager = new ClientGameManager();
-
-        return await GameManager.InitAsync();
-    }
-
-    private void OnDestroy()
-    {
-        GameManager?.Dispose();
     }
 }

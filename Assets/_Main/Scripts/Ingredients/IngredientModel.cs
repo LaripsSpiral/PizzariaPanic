@@ -10,6 +10,7 @@ namespace Main.Ingredient
     {
         private IngredientController owner;
         private ProcessData processesData => owner.Data.ProcessData;
+
         private float currProcessTime
         {
             get => owner.currProcessTime.Value;
@@ -34,14 +35,15 @@ namespace Main.Ingredient
             }
 
             // Processed
-            if (currProcessTime <= 0)
+            if (currProcessTime >= processesData.ProcessTime)
             {
                 HandleProcessed(processBy);
+                currProcessTime = 0;
             }
 
             // Decrease process timer;
             Debug.Log($"{this} is Processing");
-            currProcessTime -= Time.fixedDeltaTime;
+            currProcessTime += Time.fixedDeltaTime;
         }
 
         public void HandleProcessed(Processor processBy)
@@ -60,8 +62,10 @@ namespace Main.Ingredient
         {
             Debug.Log($"{this}: ChangedToProcessedData");
 
-            if (processesData.ProcessedData != null)
-                owner.SetDataRPC(processesData.ProcessedData.Name);
+            if (processesData.ProcessedData == null)
+                return;
+            
+            owner.SetDataRPC(processesData.ProcessedData.Name);
         }
 
         public bool TryAddIngredient(IngredientController addingIngredient)

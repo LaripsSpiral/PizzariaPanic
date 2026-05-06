@@ -3,6 +3,7 @@ using System;
 using System.Threading.Tasks;
 using Unity.Collections;
 using Unity.Netcode;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -30,12 +31,16 @@ namespace Main.Ingredient
         private IngredientSO currentData;
         public IngredientSO Data => currentData;
 
+        [SerializeField]
         private IngredientModel model = new();
         public IngredientModel Model => model;
 
         [SerializeField]
         private bool isCooked;
         public bool IsCooked => isCooked;
+
+        [SerializeField]
+        private ProcessProgressUI progressUI;
 
         protected void Start()
         {
@@ -45,6 +50,8 @@ namespace Main.Ingredient
         public override void OnNetworkSpawn()
         {
             dataId.OnValueChanged += HandleDataIDChange;
+
+            currProcessTime.OnValueChanged += HandleProcessTime;
 
             var currentKey = dataId.Value.ToString();
             if (!string.IsNullOrEmpty(currentKey))
@@ -143,6 +150,7 @@ namespace Main.Ingredient
             {
                 var data = await LoadData(newValue);
                 currentData = Instantiate(data);
+                currProcessTime.Value = 0;
 
                 // Only modify the recipe list on the server to avoid duplicates.
                 // HandleDataIDChange fires on ALL clients via OnValueChanged,
@@ -199,6 +207,11 @@ namespace Main.Ingredient
             }
 
             return null;
+        }
+
+        public void HandleProcessTime(float previousValue, float newValue)
+        {
+            progressUI.Setup(newValue, Data.ProcessData.ProcessTime);
         }
     }
 }

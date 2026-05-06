@@ -1,4 +1,6 @@
 using Main.Items.ItemHolder;
+using NaughtyAttributes;
+using System.Threading.Tasks;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -33,10 +35,36 @@ public class PlayerCharacter : NetworkBehaviour
         ItemHolder.InitUpdateParentTransform();
     }
 
+    public override void OnNetworkSpawn()
+    {
+        RandomSpawnPointRpc();
+    }
+
     private void FixedUpdate()
     {
         UpdateRotation();
         anim.SetFloat("vel", rb.linearVelocity.sqrMagnitude);
+    }
+
+    [ContextMenu("Spawn")]
+    [Rpc(SendTo.Server)]
+    private void RandomSpawnPointRpc()
+    {
+        var spawner = FindFirstObjectByType<Spawner>();
+
+        if (spawner.Spawnpoints.Length > 0)
+        {
+            // Calculate index safely
+            int index = (int)OwnerClientId % spawner.Spawnpoints.Length;
+            var spawnPoint = spawner.Spawnpoints[index].transform;
+            rb.Move(spawnPoint.position, spawnPoint.rotation);
+        }
+        else
+        {
+            // Fallback so the game doesn't crash
+            Debug.LogWarning("No objects tagged 'SpawnPoint' found! Spawning at (0,0,0)");
+            transform.position = Vector3.zero;
+        }
     }
 
     [Rpc(SendTo.Server)]
@@ -45,6 +73,7 @@ public class PlayerCharacter : NetworkBehaviour
         moveDir = new Vector3(moveInput.x, 0, moveInput.y);
         rb.AddForce(moveDir * moveSpeed * Time.fixedDeltaTime, ForceMode.VelocityChange);
     }
+
     private void UpdateRotation()
     {
         if (moveDir.sqrMagnitude < 0.001f)
