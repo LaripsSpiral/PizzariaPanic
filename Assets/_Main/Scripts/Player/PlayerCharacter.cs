@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Unity.Multiplayer.Center.NetcodeForGameObjectsExample.DistributedAuthority;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerCharacter : NetworkBehaviour
 {
@@ -27,9 +28,17 @@ public class PlayerCharacter : NetworkBehaviour
     [SerializeField]
     private Animator anim;
 
+    [SerializeField]
+    private Image colorMarker;
+
+    [SerializeField]
+    private Color[] colors;
+
     private void OnValidate()
     {
         rb ??= GetComponent<Rigidbody>();
+        if (colors.Length > 0)
+            colorMarker.color = colors[0];
     }
     private void Awake()
     {
@@ -39,7 +48,10 @@ public class PlayerCharacter : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         if (IsOwner)
+        {
             RandomSpawnPointRpc();
+            SetColorRpc();
+        }
     }
 
     private void FixedUpdate()
@@ -67,6 +79,13 @@ public class PlayerCharacter : NetworkBehaviour
             Debug.LogWarning("No objects tagged 'SpawnPoint' found! Spawning at (0,0,0)");
             transform.position = Vector3.zero;
         }
+    }
+
+    [Rpc(SendTo.Everyone)]
+    private void SetColorRpc()
+    {
+        int index = (int)OwnerClientId % colors.Length;
+        colorMarker.color = colors[index];
     }
 
     [Rpc(SendTo.Server)]

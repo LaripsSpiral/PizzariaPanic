@@ -26,6 +26,8 @@ public class GameManager : NetworkBehaviour
         Stat.MistakeFail.OnValueChanged += (_,_) => UpdateMistake();
         UpdateProgress();
         UpdateMistake();
+
+        StartGame();
     }
 
     [ContextMenu("StartGame")]
@@ -45,7 +47,7 @@ public class GameManager : NetworkBehaviour
 
         Debug.Log("[GameManager] Game Over");
         IsRoundStarted = false;
-        resultController.Completed();
+        resultController.Completed(Stat);
     }
 
     private void UpdateProgress()
@@ -63,6 +65,6 @@ public class GameManager : NetworkBehaviour
         progressUI.SetMistake(Stat.GetStarScore(), Stat.MaxFailCount);
 
         if (Stat.MistakeFail.Value >= Stat.MaxFailCount)
-            resultController.Failed();
+            resultController.Failed(Stat);
     }
 }

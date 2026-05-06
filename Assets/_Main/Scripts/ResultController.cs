@@ -7,25 +7,34 @@ public class ResultController : MonoBehaviour
     private Canvas ui;
 
     [SerializeField]
-    private TMP_Text resultText;
+    private ProgressUI progressUI;
 
-    private void Show()
+    [SerializeField]
+    private Transform[] disables;
+
+    private void Start()
     {
-        ui.gameObject.SetActive(true);
+        ui.enabled = false;
     }
 
-    public void Completed()
+    private void Show(Stat stat)
+    {
+        ui.enabled = true;
+        progressUI.SetProgress(stat.SentOrder.Value, stat.TotalOrder);
+        progressUI.SetMistake(stat.MistakeFail.Value, stat.MaxFailCount);
+        
+    }
+
+    public void Completed(Stat stat)
     {
         Debug.Log($"{this}, Completed");
-        resultText.text = "Completed";
-        Show();
+        Show(stat);
     }
 
-    public void Failed()
+    public void Failed(Stat stat)
     {
         Debug.Log($"{this}, Failed");
-        resultText.text = "Failed";
-        Show();
+        Show(stat);
     }
 
 }

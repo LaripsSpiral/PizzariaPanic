@@ -24,7 +24,8 @@ public class HostGameManager : IDisposable
 
     private const int MaxConnections = 3;
     private const string GameSceneName = "SampleScene";
-    private const string JoinCodeKey = "JoinCode";
+    private const string JoinCodeKey = "JoinCode"; 
+    public string JoinCode { get; private set; }
     public async Task StartHostAsync()
     {
         try
@@ -70,7 +71,7 @@ public class HostGameManager : IDisposable
             Lobby lobby = await LobbyService.Instance.CreateLobbyAsync(
                 $"{playerName}'s Lobby", MaxConnections, lobbyOptions);
             lobbyId = lobby.Id;
-
+            JoinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
             HostSingleton.Instance.StartCoroutine(HeartbeatLobby(15));
         }
         catch (LobbyServiceException e)
