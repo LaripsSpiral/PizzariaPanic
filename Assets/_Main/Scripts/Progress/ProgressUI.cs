@@ -5,9 +5,6 @@ using UnityEngine.UI;
 public class ProgressUI : MonoBehaviour
 {
     [SerializeField]
-    private Image progressBar;
-
-    [SerializeField]
     private Image[] stars;
 
     [SerializeField]
@@ -16,10 +13,15 @@ public class ProgressUI : MonoBehaviour
     [SerializeField]
     private TMP_Text mistakeText;
 
+    private void OnEnable()
+    {
+        var stat = GameManager.Instance.Stat;
+        SetProgress(stat.SentOrder.Value, stat.TotalOrder);
+        SetMistake(stat.GetStarScore(), stat.MaxFailCount);
+    }
     public void SetProgress(int currentSent, int goalSent)
     {
         progessText.text = $"{currentSent}/{goalSent}";
-        progressBar.fillAmount = currentSent/goalSent;
     }
 
     public void SetMistake(int starCount, int maxMistake)

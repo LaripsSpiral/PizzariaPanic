@@ -15,6 +15,6 @@ public class SceneLoader : MonoBehaviour
 
         // 2. Load the Menu scene
         // Replace "MainMenu" with your actual scene name
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("Menu");
     }
 }
