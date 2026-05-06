@@ -51,6 +51,6 @@ public class PlayerControls : NetworkBehaviour
 
     private void FixedUpdate()
     {
-        character.MoveRPC(moveInput);
+        character.Move(moveInput);
     }
 }

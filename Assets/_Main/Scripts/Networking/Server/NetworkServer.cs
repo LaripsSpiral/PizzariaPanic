@@ -34,15 +34,24 @@ public class NetworkServer : IDisposable
     }
 
     private void ApprovalCheck(
-        NetworkManager.ConnectionApprovalRequest request,
-        NetworkManager.ConnectionApprovalResponse response)
+    NetworkManager.ConnectionApprovalRequest request,
+    NetworkManager.ConnectionApprovalResponse response)
     {
+        // Check if the game has already started
+        if (GameManager.Instance != null && GameManager.Instance.IsRoundStarted)
+        {
+            response.Approved = false;
+            response.Reason = "Game already in progress.";
+            Debug.LogWarning($"Declined join request from {request.ClientNetworkId}: Game Started.");
+            return;
+        }
+
+        // --- Your existing logic ---
         string payload = System.Text.Encoding.UTF8.GetString(request.Payload);
-        UserData userData = JsonUtility.FromJson<UserData>(payload); 
+        UserData userData = JsonUtility.FromJson<UserData>(payload);
 
         clientIdToAuth[request.ClientNetworkId] = userData.userAuthId;
         authIdToUserData[userData.userAuthId] = userData;
-        //Debug.Log(userData.userName);
 
         response.Approved = true;
         response.CreatePlayerObject = true;

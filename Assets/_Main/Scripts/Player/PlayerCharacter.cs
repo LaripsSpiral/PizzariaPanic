@@ -79,8 +79,7 @@ public class PlayerCharacter : NetworkBehaviour
         colorMarker.color = colors[index];
     }
 
-    [Rpc(SendTo.Server)]
-    public void MoveRPC(Vector2 moveInput)
+    public void Move(Vector2 moveInput)
     {
         moveDir = new Vector3(moveInput.x, 0, moveInput.y);
         rb.AddForce(moveDir * moveSpeed * Time.fixedDeltaTime, ForceMode.VelocityChange);

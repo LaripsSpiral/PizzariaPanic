@@ -1,6 +1,7 @@
 using TMPro;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : NetworkBehaviour
 {
@@ -12,6 +13,9 @@ public class GameManager : NetworkBehaviour
 
     [SerializeField]
     private ProgressUI progressUI;
+
+    [SerializeField]
+    private ProgressUI resultProgressUI;
 
     [SerializeField]
     private ResultController resultController;
@@ -80,6 +84,8 @@ public class GameManager : NetworkBehaviour
     {
         Debug.Log("[GameManager] Start Game");
 
+        HostSingleton.Instance.GameManager.LockLobby();
+
         var players = FindObjectsByType<PlayerCharacter>(sortMode: FindObjectsSortMode.InstanceID);
         foreach (var player in players)
         {
@@ -98,19 +104,26 @@ public class GameManager : NetworkBehaviour
         readyCanvas.enabled = false;
     }
 
-public void GameOver()
+    public void GameOver()
     {
         if (!IsServer)
             return;
 
         Debug.Log("[GameManager] Game Over");
         IsRoundStarted = false;
+        ClientShowResultRpc();
+    }
+
+    [Rpc(SendTo.Everyone)]
+    private void ClientShowResultRpc()
+    {
         resultController.Completed(Stat);
     }
 
     private void UpdateProgress()
     {
         progressUI.SetProgress(Stat.SentOrder.Value, Stat.TotalOrder);
+        resultProgressUI.SetProgress(Stat.SentOrder.Value, Stat.TotalOrder);
 
         if (Stat.SentOrder.Value < Stat.TotalOrder)
             return;
@@ -121,8 +134,29 @@ public void GameOver()
     private void UpdateMistake()
     {
         progressUI.SetMistake(Stat.GetStarScore(), Stat.MaxFailCount);
+        resultProgressUI.SetMistake(Stat.GetStarScore(), Stat.MaxFailCount);
 
         if (Stat.MistakeFail.Value >= Stat.MaxFailCount)
             resultController.Failed(Stat);
+    }
+
+    public void OnLeaveGame() => LeaveGame();
+
+    private async void LeaveGame()
+    {
+        // 1. Tell Netcode to shut down
+        if (NetworkManager.Singleton != null)
+        {
+            NetworkManager.Singleton.Shutdown();
+        }
+
+        // 2. Reset the Singleton states
+        if (HostSingleton.Instance != null)
+        {
+            await HostSingleton.Instance.ResetHost();
+        }
+
+        // 3. Now load the menu scene
+        SceneManager.LoadScene("Menu");
     }
 }

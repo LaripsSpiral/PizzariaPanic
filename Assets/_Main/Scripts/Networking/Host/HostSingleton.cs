@@ -66,7 +66,19 @@ public class HostSingleton : MonoBehaviour
 
     public void CreateHost()
     {
+        // Clean up old manager if it exists
+        GameManager?.Dispose();
         GameManager = new HostGameManager();
+    }
+
+    // Call this when clicking "Back to Main Menu" or when the game ends
+    public async Task ResetHost()
+    {
+        if (GameManager != null)
+        {
+            await GameManager.ShutdownAsync();
+        }
+        CreateHost(); // Re-initialize for the next attempt
     }
 
     private void OnDestroy()

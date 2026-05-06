@@ -7,9 +7,6 @@ public class ResultController : MonoBehaviour
     private Canvas ui;
 
     [SerializeField]
-    private ProgressUI progressUI;
-
-    [SerializeField]
     private Transform[] disables;
 
     private void Start()
@@ -20,9 +17,6 @@ public class ResultController : MonoBehaviour
     private void Show(Stat stat)
     {
         ui.enabled = true;
-        progressUI.SetProgress(stat.SentOrder.Value, stat.TotalOrder);
-        progressUI.SetMistake(stat.MistakeFail.Value, stat.MaxFailCount);
-        
     }
 
     public void Completed(Stat stat)

@@ -13,12 +13,6 @@ public class ProgressUI : MonoBehaviour
     [SerializeField]
     private TMP_Text mistakeText;
 
-    private void OnEnable()
-    {
-        var stat = GameManager.Instance.Stat;
-        SetProgress(stat.SentOrder.Value, stat.TotalOrder);
-        SetMistake(stat.GetStarScore(), stat.MaxFailCount);
-    }
     public void SetProgress(int currentSent, int goalSent)
     {
         progessText.text = $"{currentSent}/{goalSent}";

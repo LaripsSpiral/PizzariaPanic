@@ -18,7 +18,9 @@ public class HostGameManager : IDisposable
 {
     private Allocation allocation;
     private string joinCode;
+    private Lobby joinedLobby;
     private string lobbyId;
+
 
     private NetworkServer networkServer;
 
@@ -68,9 +70,9 @@ public class HostGameManager : IDisposable
                 }
             };
             string playerName = PlayerPrefs.GetString(NameSelector.PlayerNameKey, "Unknown");
-            Lobby lobby = await LobbyService.Instance.CreateLobbyAsync(
+            joinedLobby = await LobbyService.Instance.CreateLobbyAsync(
                 $"{playerName}'s Lobby", MaxConnections, lobbyOptions);
-            lobbyId = lobby.Id;
+            lobbyId = joinedLobby.Id;
             JoinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
             HostSingleton.Instance.StartCoroutine(HeartbeatLobby(15));
         }
@@ -96,7 +98,45 @@ public class HostGameManager : IDisposable
 
         NetworkManager.Singleton.SceneManager.LoadScene(GameSceneName, LoadSceneMode.Single);
     }
+    public async void LockLobby()
+    {
+        try
+        {
+            UpdateLobbyOptions options = new UpdateLobbyOptions
+            {
+                IsLocked = true,      // Prevents new players from joining via the Lobby Service
+                IsPrivate = true      // Hides it from the "Joinable Games" list
+            };
 
+            await LobbyService.Instance.UpdateLobbyAsync(joinedLobby.Id, options);
+            Debug.Log("Lobby locked - no more players can join.");
+        }
+        catch (LobbyServiceException e)
+        {
+            Debug.LogError($"Failed to lock lobby: {e.Message}");
+        }
+    }
+    public async Task ShutdownAsync()
+    {
+        // 1. Leave or Delete the Lobby
+        if (!string.IsNullOrEmpty(lobbyId))
+        {
+            try
+            {
+                await LobbyService.Instance.DeleteLobbyAsync(lobbyId);
+            }
+            catch (System.Exception e)
+            {
+                Debug.Log($"Lobby cleanup: {e.Message}");
+            }
+        }
+
+        // 2. Shut down Netcode
+        if (NetworkManager.Singleton != null)
+        {
+            NetworkManager.Singleton.Shutdown();
+        }
+    }
     private IEnumerator HeartbeatLobby(float waitTimeSeconds)
     {
         WaitForSecondsRealtime delay = new WaitForSecondsRealtime(waitTimeSeconds);
