@@ -45,15 +45,6 @@ public class PlayerCharacter : NetworkBehaviour
         ItemHolder.InitUpdateParentTransform();
     }
 
-    public override void OnNetworkSpawn()
-    {
-        if (IsOwner)
-        {
-            RandomSpawnPointRpc();
-            SetColorRpc();
-        }
-    }
-
     private void FixedUpdate()
     {
         UpdateRotation();
@@ -62,7 +53,7 @@ public class PlayerCharacter : NetworkBehaviour
 
     [ContextMenu("Spawn")]
     [Rpc(SendTo.Server)]
-    private void RandomSpawnPointRpc()
+    public void RandomSpawnPointRpc()
     {
         var spawner = FindFirstObjectByType<Spawner>();
 
@@ -82,7 +73,7 @@ public class PlayerCharacter : NetworkBehaviour
     }
 
     [Rpc(SendTo.Everyone)]
-    private void SetColorRpc()
+    public void SetColorRpc()
     {
         int index = (int)OwnerClientId % colors.Length;
         colorMarker.color = colors[index];

@@ -2741,7 +2741,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_TargetDisplay: 0
 --- !u!224 &218985409
 RectTransform:
@@ -4058,6 +4058,11 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!223 &419978567 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 2191055200886361890, guid: a9b1dde2f580665499fe80a8916cdc14, type: 3}
+  m_PrefabInstance: {fileID: 7793685047275046172}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &431131453
 GameObject:
   m_ObjectHideFlags: 0
@@ -6505,6 +6510,17 @@ Mesh:
       - serializedVersion: 1
         m_IndexStart: 0
         m_IndexCount: 0
+--- !u!114 &674929868 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9028392833937518973, guid: a9b1dde2f580665499fe80a8916cdc14, type: 3}
+  m_PrefabInstance: {fileID: 7793685047275046172}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1 &681057285
 GameObject:
   m_ObjectHideFlags: 0
@@ -19204,6 +19220,8 @@ MonoBehaviour:
   Stat: {fileID: 1970620743}
   progressUI: {fileID: 681057286}
   resultController: {fileID: 882247933}
+  readyCanvas: {fileID: 419978567}
+  readyText: {fileID: 674929868}
 --- !u!4 &1970620741
 Transform:
   m_ObjectHideFlags: 0
@@ -20675,6 +20693,111 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4b3b39e792db925458b28a0c75412f01, type: 3}
+--- !u!1001 &7793685047275046172
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1102897972719009083, guid: a9b1dde2f580665499fe80a8916cdc14, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1970620740}
+    - target: {fileID: 2191055200886361890, guid: a9b1dde2f580665499fe80a8916cdc14, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2643531402803488482, guid: a9b1dde2f580665499fe80a8916cdc14, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2643531402803488482, guid: a9b1dde2f580665499fe80a8916cdc14, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2643531402803488482, guid: a9b1dde2f580665499fe80a8916cdc14, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2643531402803488482, guid: a9b1dde2f580665499fe80a8916cdc14, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2643531402803488482, guid: a9b1dde2f580665499fe80a8916cdc14, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2643531402803488482, guid: a9b1dde2f580665499fe80a8916cdc14, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2643531402803488482, guid: a9b1dde2f580665499fe80a8916cdc14, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2643531402803488482, guid: a9b1dde2f580665499fe80a8916cdc14, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2643531402803488482, guid: a9b1dde2f580665499fe80a8916cdc14, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2643531402803488482, guid: a9b1dde2f580665499fe80a8916cdc14, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2643531402803488482, guid: a9b1dde2f580665499fe80a8916cdc14, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2643531402803488482, guid: a9b1dde2f580665499fe80a8916cdc14, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2643531402803488482, guid: a9b1dde2f580665499fe80a8916cdc14, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2643531402803488482, guid: a9b1dde2f580665499fe80a8916cdc14, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2643531402803488482, guid: a9b1dde2f580665499fe80a8916cdc14, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2643531402803488482, guid: a9b1dde2f580665499fe80a8916cdc14, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2643531402803488482, guid: a9b1dde2f580665499fe80a8916cdc14, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2643531402803488482, guid: a9b1dde2f580665499fe80a8916cdc14, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2643531402803488482, guid: a9b1dde2f580665499fe80a8916cdc14, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2643531402803488482, guid: a9b1dde2f580665499fe80a8916cdc14, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2685958700446053778, guid: a9b1dde2f580665499fe80a8916cdc14, type: 3}
+      propertyPath: m_Name
+      value: Ready-Canvas
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a9b1dde2f580665499fe80a8916cdc14, type: 3}
 --- !u!1001 &8049723135173327886
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20927,6 +21050,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 2073763264}
   - {fileID: 1970620741}
+  - {fileID: 7793685047275046172}
   - {fileID: 797796586}
   - {fileID: 681057290}
   - {fileID: 1186902377}

@@ -1,3 +1,4 @@
+using TMPro;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -15,19 +16,60 @@ public class GameManager : NetworkBehaviour
     [SerializeField]
     private ResultController resultController;
 
+    private NetworkVariable<int> playersReady = new NetworkVariable<int>(0);
+
+    [SerializeField] private Canvas readyCanvas;
+    [SerializeField] private TextMeshProUGUI readyText; // UI to show "0 / 4 Ready"
+
     public void Awake()
     {
         Instance = this;
+        readyCanvas.enabled = true;
+    }
+    public override void OnNetworkSpawn()
+    {
+        // Update UI whenever the value changes
+        playersReady.OnValueChanged += (oldVal, newVal) => UpdateReadyUI();
+        UpdateReadyUI();
+
+        NetworkManager.OnClientConnectedCallback += _ => UpdateReadyUI();
+        NetworkManager.OnClientDisconnectCallback += _ => UpdateReadyUI();
     }
 
+    // This is called by a button in your UI
+    public void OnReadyButtonPressed()
+    {
+        SetReadyServerRpc();
+    }
+
+    [Rpc(SendTo.Server)]
+    private void SetReadyServerRpc(RpcParams rpcParams = default)
+    {
+        // Increment ready count
+        playersReady.Value++;
+
+        // Check if everyone is ready
+        // networkManager.ConnectedClients.Count gives us the total players
+        if (playersReady.Value >= NetworkManager.Singleton.ConnectedClients.Count)
+        {
+            StartGame();
+        }
+    }
+
+    private void UpdateReadyUI()
+    {
+        if (readyCanvas != null)
+        {
+            int total = NetworkManager.Singleton.ConnectedClients.Count;
+            readyText.text = $"Waiting for players: {playersReady.Value} / {total}";
+        }
+    }
     public void Start()
     {
         Stat.SentOrder.OnValueChanged += (_,_) => UpdateProgress();
         Stat.MistakeFail.OnValueChanged += (_,_) => UpdateMistake();
         UpdateProgress();
         UpdateMistake();
-
-        StartGame();
     }
 
     [ContextMenu("StartGame")]
@@ -37,10 +79,26 @@ public class GameManager : NetworkBehaviour
     public void StartGameRPC()
     {
         Debug.Log("[GameManager] Start Game");
-        IsRoundStarted = true;
+
+        var players = FindObjectsByType<PlayerCharacter>(sortMode: FindObjectsSortMode.InstanceID);
+        foreach (var player in players)
+        {
+            player.RandomSpawnPointRpc();
+            player.SetColorRpc();
+        }
+
+        IsRoundStarted = true; 
+        StartGameClientRpc();
     }
 
-    public void GameOver()
+    [Rpc(SendTo.ClientsAndHost)]
+    private void StartGameClientRpc()
+    {
+        // Hide the waiting screen for everyone
+        readyCanvas.enabled = false;
+    }
+
+public void GameOver()
     {
         if (!IsServer)
             return;
