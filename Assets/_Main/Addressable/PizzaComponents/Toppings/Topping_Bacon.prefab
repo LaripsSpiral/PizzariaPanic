@@ -76,10 +76,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Topping_Bacon
       objectReference: {fileID: 0}
+    - target: {fileID: 3985196748137144914, guid: a32afb110c8cca04a9767ec960088343, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.08738764
+      objectReference: {fileID: 0}
+    - target: {fileID: 4128641736051148650, guid: a32afb110c8cca04a9767ec960088343, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.08738764
+      objectReference: {fileID: 0}
     - target: {fileID: 4278200481962586376, guid: a32afb110c8cca04a9767ec960088343, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: e135b4a37007ad44c83a15283746e766, type: 2}
+    - target: {fileID: 4752033889437423975, guid: a32afb110c8cca04a9767ec960088343, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.08738764
+      objectReference: {fileID: 0}
+    - target: {fileID: 7478489454643454156, guid: a32afb110c8cca04a9767ec960088343, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.08738764
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
