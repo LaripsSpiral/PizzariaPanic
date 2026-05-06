@@ -101,8 +101,7 @@ public class PlayerCharacter : NetworkBehaviour
         transform.rotation = Quaternion.Euler(0f, newYaw, 0f);
     }
 
-    [Rpc(SendTo.Server)]
-    public void DashRPC(Vector2 moveInput)
+    public void Dash(Vector2 moveInput)
     {
         var dir = new Vector3(moveInput.x, 0, moveInput.y);
 
