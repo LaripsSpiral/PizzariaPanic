@@ -6,6 +6,7 @@ using Unity.Multiplayer.Center.NetcodeForGameObjectsExample.DistributedAuthority
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.VFX;
 
 public class PlayerCharacter : NetworkBehaviour
 {
@@ -33,6 +34,9 @@ public class PlayerCharacter : NetworkBehaviour
 
     [SerializeField]
     private Color[] colors;
+
+    [SerializeField]
+    private ParticleSystem dashVfx;
 
     private void OnValidate()
     {
@@ -110,5 +114,12 @@ public class PlayerCharacter : NetworkBehaviour
 
         rb.linearVelocity = Vector3.zero;
         rb.AddForce(dir * moveSpeed * dashMultiplier, ForceMode.Impulse);
+        DashVFXRPC();
+    }
+
+    [Rpc(SendTo.ClientsAndHost)]
+    private void DashVFXRPC()
+    {
+        dashVfx?.Play();
     }
 }

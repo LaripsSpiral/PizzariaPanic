@@ -1,11 +1,15 @@
+using System;
 using TMPro;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class GameManager : NetworkBehaviour
 {
     public static GameManager Instance;
+
+    public event UnityAction OnGameStarted;
 
     public bool IsRoundStarted = false;
 
@@ -95,6 +99,7 @@ public class GameManager : NetworkBehaviour
 
         IsRoundStarted = true; 
         StartGameClientRpc();
+        OnGameStarted.Invoke();
     }
 
     [Rpc(SendTo.ClientsAndHost)]

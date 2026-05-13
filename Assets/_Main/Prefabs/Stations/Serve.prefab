@@ -1,5 +1,39 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3347360550237762290
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1458582659829499589}
+  m_Layer: 7
+  m_Name: View
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1458582659829499589
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3347360550237762290}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7096975230627125229}
+  - {fileID: 502660948113674651}
+  - {fileID: 5055351260582879246}
+  m_Father: {fileID: 641541185776455333}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3482673339077668099
 GameObject:
   m_ObjectHideFlags: 0
@@ -32,7 +66,7 @@ RectTransform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2842038242559306232}
-  m_Father: {fileID: 641541185776455333}
+  m_Father: {fileID: 1458582659829499589}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -131,10 +165,10 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.00000013411044, z: -0, w: -1}
   m_LocalPosition: {x: 0, y: 0.46043444, z: -0.02129968}
-  m_LocalScale: {x: 0.9507111, y: 0.049100004, z: 0.9574}
+  m_LocalScale: {x: 0.95071113, y: 0.049100004, z: 0.9574}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 641541185776455333}
+  m_Father: {fileID: 1458582659829499589}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8816905166202765031
 MeshFilter:
@@ -420,9 +454,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5950244107070277662}
-  - {fileID: 7096975230627125229}
-  - {fileID: 502660948113674651}
-  - {fileID: 5055351260582879246}
+  - {fileID: 1458582659829499589}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4279777732134973120
@@ -798,13 +830,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Main.Station.Station_Serve
   ShowTopMostFoldoutHeaderGroup: 1
   ItemHolder: {fileID: 8677677728954951475}
+  view: {fileID: 1458582659829499589}
 --- !u!1001 &4682156358410627782
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 641541185776455333}
+    m_TransformParent: {fileID: 1458582659829499589}
     m_Modifications:
     - target: {fileID: 2488196155509341483, guid: 84897b65c1aad0446aa9f7450df88b60, type: 3}
       propertyPath: m_LocalScale.x
@@ -816,11 +849,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2488196155509341483, guid: 84897b65c1aad0446aa9f7450df88b60, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.3375666
+      value: 1.3375667
       objectReference: {fileID: 0}
     - target: {fileID: 2488196155509341483, guid: 84897b65c1aad0446aa9f7450df88b60, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.0050310045
+      value: -0.00503095
       objectReference: {fileID: 0}
     - target: {fileID: 2488196155509341483, guid: 84897b65c1aad0446aa9f7450df88b60, type: 3}
       propertyPath: m_LocalPosition.y

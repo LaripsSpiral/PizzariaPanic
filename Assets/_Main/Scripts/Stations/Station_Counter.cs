@@ -59,6 +59,7 @@ namespace Main.Station
 
             Debug.Log("Processing");
             pizzaComponents.Model.DoProcess(Processor.Counter);
+            ProcessPunchRpc();
         }
 
     }

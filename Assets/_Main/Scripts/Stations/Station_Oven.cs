@@ -36,6 +36,7 @@ namespace Main.Station
 
             Debug.Log("Processing");
             holdingIngredient.Model.DoProcess(Processor.Oven);
+            ProcessPunchRpc();
         }
     }
 }

@@ -69,9 +69,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5952426782900256706}
-  - {fileID: 795246096148720421}
-  - {fileID: 9022686919927207882}
-  - {fileID: 7356197742993968837}
+  - {fileID: 5607062130139962511}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &880951696218590206
@@ -406,7 +404,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 4076749338
+  GlobalObjectIdHash: 200801497
   InScenePlacedSourceGlobalObjectIdHash: 4076749338
   DeferredDespawnTick: 0
   Ownership: 1
@@ -433,6 +431,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Station_Oven
   ShowTopMostFoldoutHeaderGroup: 1
   ItemHolder: {fileID: 863299466327405562}
+  view: {fileID: 5607062130139962511}
 --- !u!114 &863299466327405562
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -479,7 +478,7 @@ RectTransform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6062995743926660181}
-  m_Father: {fileID: 3631212945760347699}
+  m_Father: {fileID: 5607062130139962511}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -549,6 +548,40 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!1 &8282380486030073715
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5607062130139962511}
+  m_Layer: 7
+  m_Name: View
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5607062130139962511
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8282380486030073715}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 795246096148720421}
+  - {fileID: 9022686919927207882}
+  - {fileID: 7356197742993968837}
+  m_Father: {fileID: 3631212945760347699}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9188007504439243153
 GameObject:
   m_ObjectHideFlags: 0
@@ -630,7 +663,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 3631212945760347699}
+    m_TransformParent: {fileID: 5607062130139962511}
     m_Modifications:
     - target: {fileID: 4793564521393675093, guid: aefe25543bc466e43862b879325dda2f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -678,7 +711,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6059973034636273643, guid: aefe25543bc466e43862b879325dda2f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.0553
+      value: -0.055300005
       objectReference: {fileID: 0}
     - target: {fileID: 6059973034636273643, guid: aefe25543bc466e43862b879325dda2f, type: 3}
       propertyPath: m_LocalRotation.w
@@ -686,15 +719,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6059973034636273643, guid: aefe25543bc466e43862b879325dda2f, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6059973034636273643, guid: aefe25543bc466e43862b879325dda2f, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6059973034636273643, guid: aefe25543bc466e43862b879325dda2f, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6059973034636273643, guid: aefe25543bc466e43862b879325dda2f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -728,7 +761,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 3631212945760347699}
+    m_TransformParent: {fileID: 5607062130139962511}
     m_Modifications:
     - target: {fileID: 2488196155509341483, guid: 84897b65c1aad0446aa9f7450df88b60, type: 3}
       propertyPath: m_LocalScale.x
@@ -740,7 +773,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2488196155509341483, guid: 84897b65c1aad0446aa9f7450df88b60, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.3375666
+      value: 1.3375667
       objectReference: {fileID: 0}
     - target: {fileID: 2488196155509341483, guid: 84897b65c1aad0446aa9f7450df88b60, type: 3}
       propertyPath: m_LocalPosition.x
